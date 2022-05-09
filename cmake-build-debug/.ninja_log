@@ -1,0 +1,9 @@
+# ninja log v5
+0	751	1652125190473214472	build.ninja	90002812366a5ea9
+1	2170	1652124897505960918	CMakeFiles/memory_game.dir/src/client/main.cpp.o	c4f8341e66d70eb5
+2	2229	1652125104306809819	CMakeFiles/memory_game.dir/src/app/Memory.cpp.o	f284624288d398f9
+2170	2547	1652124897881969335	memory_game	3dc272034376e390
+0	571	1652125190473214472	build.ninja	90002812366a5ea9
+1	4293	1652125194765332514	CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o	c42959f8cd30204b
+1	4461	1652125194937337241	CMakeFiles/memory_game.dir/src/client/main.cpp.o	c4f8341e66d70eb5
+4461	4945	1652125195417350433	memory_game	ae30cabdaea670b0
