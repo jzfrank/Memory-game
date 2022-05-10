@@ -10,6 +10,7 @@
 #include "../uiElements/InputField.h"
 #include "../uiElements/ImagePanel.h"
 
+
 class ConnectionPanel : public wxPanel {
 
 public:

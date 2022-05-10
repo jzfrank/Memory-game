@@ -3,8 +3,10 @@
 //
 
 #include "ConnectionPanel.h"
+#include "../GameController.h"
 
-ConnectionPanel::ConnectionPanel(wxWindow *parent) : wxPanel(parent, wxID_ANY)
+ConnectionPanel::ConnectionPanel(wxWindow *parent)
+: wxPanel(parent, wxID_ANY)
 {
     wxColor white = wxColor(255, 255, 255);
     this->SetBackgroundColour(white);
@@ -51,8 +53,11 @@ ConnectionPanel::ConnectionPanel(wxWindow *parent) : wxPanel(parent, wxID_ANY)
     verticalLayout->Add(this->_playerNameField, 0, wxALIGN_CENTER | wxALL, 10);
 
     wxButton* connectButton = new wxButton(this, wxID_ANY, "Connect", wxDefaultPosition, wxSize(100, 50));
-
+    connectButton->Bind(wxEVT_BUTTON, [](wxCommandEvent& event) {
+        GameController::connectToServer();
+    });
     verticalLayout->Add(connectButton, 0, wxALIGN_RIGHT | wxALL, 15);
+
 
     this->SetSizerAndFit(verticalLayout);
 }
