@@ -10,7 +10,7 @@ find_package(wxWidgets COMPONENTS core base REQUIRED)
 include(${wxWidgets_USE_FILE})
 
 add_executable(memory_game
-        src/client/main.cpp src/client/app/Memory.cpp src/client/app/Memory.h)
+        src/client/main.cpp src/client/app/Memory.cpp src/client/app/Memory.h src/client/windows/GameWindow.cpp src/client/windows/GameWindow.h src/client/panels/ConnectionPanel.cpp src/client/panels/ConnectionPanel.h)
 
 
 target_link_libraries(memory_game ${wxWidgets_LIBRARIES})

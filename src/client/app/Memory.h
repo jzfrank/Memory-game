@@ -6,12 +6,11 @@
 #define MEMORY_GAME_MEMORY_H
 
 #include <wx/wx.h>
-//#include "../windows/GameWindow.h"
-//#include "../GameController.h"
+#include "../windows/GameWindow.h"
 
 
 // Main app class
-class Lama : public wxApp
+class Memory : public wxApp
 {
 public:
     virtual bool OnInit();

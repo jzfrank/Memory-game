@@ -5,9 +5,6 @@
 
 #include <wx/wx.h>
 #include "app/Memory.h"
-#include <iostream>
 
-
-int main() {
-    std::cout << "Hello world!" << std::endl;
-}
+// Macro which will generate a main function which serves as entry point into the program
+wxIMPLEMENT_APP(Memory);
