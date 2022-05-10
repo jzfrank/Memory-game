@@ -7,24 +7,24 @@
 
 
 #include <wx/wx.h>
-//#include "../uiElements/InputField.h"
+#include "../uiElements/InputField.h"
 
 
-//class ConnectionPanel : public wxPanel {
-//
-//public:
-//    ConnectionPanel(wxWindow* parent);
-//
+class ConnectionPanel : public wxPanel {
+
+public:
+    ConnectionPanel(wxWindow* parent);
+
 //    wxString getServerAddress();
 //    wxString getServerPort();
 //    wxString getPlayerName();
-//
-//private:
-//    InputField* _serverAddressField;
+
+private:
+    InputField* _serverAddressField;
 //    InputField* _serverPortField;
 //    InputField* _playerNameField;
-//
-//};
+
+};
 
 
 #endif //MEMORY_GAME_CONNECTIONPANEL_H

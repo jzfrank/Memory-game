@@ -7,6 +7,8 @@
 
 #include <wx/wx.h>
 #include "../windows/GameWindow.h"
+#include "../panels/ConnectionPanel.h"
+#include "../GameController.h"
 
 
 // Main app class

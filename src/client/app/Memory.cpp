@@ -3,7 +3,6 @@
 //
 
 #include "Memory.h"
-#include <iostream>
 
 // Application entry point
 bool Memory::OnInit()
@@ -19,7 +18,12 @@ bool Memory::OnInit()
             wxDefaultSize // size of the window
     );
     gameWindow->Show(true);
-    gameWindow->setStatus("Hello Memory");
+
+    // game control
+    GameController::init(gameWindow);
+//    ConnectionPanel* connectionPanel = new ConnectionPanel(gameWindow);
+//    gameWindow->showPanel(connectionPanel);
+//    gameWindow->setStatus("Hello Memory");
 
     return true;
 }

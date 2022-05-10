@@ -11,7 +11,7 @@ GameWindow::GameWindow(const wxString & title, const wxPoint & pos, const wxSize
 
     this->_mainLayout = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer* outerLayout = new wxBoxSizer(wxHORIZONTAL);
-    outerLayout->Add(this->_mainLayout, 0.1, wxCENTER);
+    outerLayout->Add(this->_mainLayout, 1, wxCENTER);
     this->SetSizerAndFit(outerLayout);
     this->_currentPanel = nullptr;
 
@@ -26,7 +26,34 @@ GameWindow::GameWindow(const wxString & title, const wxPoint & pos, const wxSize
     this->SetMinSize(wxSize(1000, 720));
 }
 
+void GameWindow::showPanel(wxPanel *panel)
+{
+    // if we are showing the panel, nothing is needed
+    if (this->_currentPanel == panel) {
+        return;
+    }
+
+    // remove previous panel
+    if (this->_currentPanel != nullptr) {
+        this->_mainLayout->Detach(this->_currentPanel);
+        this->_currentPanel->Show(false);
+        this->_currentPanel = nullptr;
+    }
+
+    // add new panel
+    int border_spacing = 10;
+    this->_mainLayout->Add(panel, 0, wxALIGN_CENTER | wxALL, border_spacing);
+    panel->Show(true);
+    this->_currentPanel = panel;
+
+    // update layout
+    this->_mainLayout->Layout();
+
+    // update window size
+    this->Fit();
+}
+
 void GameWindow::setStatus(const std::string &message)
 {
-    this->_statusBar->SetStatusText(message);
+    this->_statusBar->SetStatusText(message, 0);
 }
