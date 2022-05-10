@@ -26,5 +26,5 @@ void GameController::init(GameWindow *gameWindow)
     GameController::_gameWindow->showPanel(GameController::_connectionPanel);
 
     // Set status bar
-    //
+    GameController::_gameWindow->setStatus("Not Connected");
 }

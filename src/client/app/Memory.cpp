@@ -19,11 +19,8 @@ bool Memory::OnInit()
     );
     gameWindow->Show(true);
 
-    // game control
+    // Initialize GameController
     GameController::init(gameWindow);
-//    ConnectionPanel* connectionPanel = new ConnectionPanel(gameWindow);
-//    gameWindow->showPanel(connectionPanel);
-//    gameWindow->setStatus("Hello Memory");
 
     return true;
 }

@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_memory_game: phony || CMakeFiles/memory_
 build CMakeFiles/memory_game.dir/src/client/main.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/client/main.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
   DEP_FILE = CMakeFiles/memory_game.dir/src/client/main.cpp.o.d
-  FLAGS = -pthread -g -std=gnu++17
+  FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client
@@ -60,7 +60,7 @@ build CMakeFiles/memory_game.dir/src/client/main.cpp.o: CXX_COMPILER__memory_gam
 build CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/client/app/Memory.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
   DEP_FILE = CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o.d
-  FLAGS = -pthread -g -std=gnu++17
+  FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client/app
@@ -68,7 +68,7 @@ build CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o: CXX_COMPILER__memo
 build CMakeFiles/memory_game.dir/src/client/windows/GameWindow.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/client/windows/GameWindow.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
   DEP_FILE = CMakeFiles/memory_game.dir/src/client/windows/GameWindow.cpp.o.d
-  FLAGS = -pthread -g -std=gnu++17
+  FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client/windows
@@ -76,7 +76,7 @@ build CMakeFiles/memory_game.dir/src/client/windows/GameWindow.cpp.o: CXX_COMPIL
 build CMakeFiles/memory_game.dir/src/client/panels/ConnectionPanel.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/client/panels/ConnectionPanel.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
   DEP_FILE = CMakeFiles/memory_game.dir/src/client/panels/ConnectionPanel.cpp.o.d
-  FLAGS = -pthread -g -std=gnu++17
+  FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client/panels
@@ -84,7 +84,7 @@ build CMakeFiles/memory_game.dir/src/client/panels/ConnectionPanel.cpp.o: CXX_CO
 build CMakeFiles/memory_game.dir/src/client/GameController.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/client/GameController.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
   DEP_FILE = CMakeFiles/memory_game.dir/src/client/GameController.cpp.o.d
-  FLAGS = -pthread -g -std=gnu++17
+  FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client
@@ -92,7 +92,15 @@ build CMakeFiles/memory_game.dir/src/client/GameController.cpp.o: CXX_COMPILER__
 build CMakeFiles/memory_game.dir/src/client/uiElements/InputField.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/client/uiElements/InputField.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
   DEP_FILE = CMakeFiles/memory_game.dir/src/client/uiElements/InputField.cpp.o.d
-  FLAGS = -pthread -g -std=gnu++17
+  FLAGS = -pthread -g -std=gnu++2a
+  INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
+  OBJECT_DIR = CMakeFiles/memory_game.dir
+  OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client/uiElements
+
+build CMakeFiles/memory_game.dir/src/client/uiElements/ImagePanel.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/client/uiElements/ImagePanel.cpp || cmake_object_order_depends_target_memory_game
+  DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
+  DEP_FILE = CMakeFiles/memory_game.dir/src/client/uiElements/ImagePanel.cpp.o.d
+  FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client/uiElements
@@ -105,7 +113,7 @@ build CMakeFiles/memory_game.dir/src/client/uiElements/InputField.cpp.o: CXX_COM
 #############################################
 # Link the executable memory_game
 
-build memory_game: CXX_EXECUTABLE_LINKER__memory_game_Debug CMakeFiles/memory_game.dir/src/client/main.cpp.o CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o CMakeFiles/memory_game.dir/src/client/windows/GameWindow.cpp.o CMakeFiles/memory_game.dir/src/client/panels/ConnectionPanel.cpp.o CMakeFiles/memory_game.dir/src/client/GameController.cpp.o CMakeFiles/memory_game.dir/src/client/uiElements/InputField.cpp.o
+build memory_game: CXX_EXECUTABLE_LINKER__memory_game_Debug CMakeFiles/memory_game.dir/src/client/main.cpp.o CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o CMakeFiles/memory_game.dir/src/client/windows/GameWindow.cpp.o CMakeFiles/memory_game.dir/src/client/panels/ConnectionPanel.cpp.o CMakeFiles/memory_game.dir/src/client/GameController.cpp.o CMakeFiles/memory_game.dir/src/client/uiElements/InputField.cpp.o CMakeFiles/memory_game.dir/src/client/uiElements/ImagePanel.cpp.o
   FLAGS = -pthread -g
   LINK_LIBRARIES = -L/usr/lib/x86_64-linux-gnu  -pthread  -lwx_gtk3u_core-3.0  -lwx_baseu-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir

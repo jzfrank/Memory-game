@@ -1,4 +1,6 @@
 /snap/clion/189/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/189/bin/ninja/linux/ninja -G Ninja -S /home/parallels/Desktop/memory-game -B /home/parallels/Desktop/memory-game/cmake-build-debug
+-- Installing: /home/parallels/Desktop/memory-game/cmake-build-debug/assets
+-- Installing: /home/parallels/Desktop/memory-game/cmake-build-debug/assets/memory-logo.png
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/parallels/Desktop/memory-game/cmake-build-debug

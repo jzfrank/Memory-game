@@ -11,16 +11,48 @@ ConnectionPanel::ConnectionPanel(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 
     wxBoxSizer* verticalLayout = new wxBoxSizer(wxVERTICAL);
 
+    ImagePanel* logo = new ImagePanel(
+            this,
+            "assets/memory-logo.png",
+            wxBITMAP_TYPE_ANY,
+            wxDefaultPosition,
+            wxSize(200, 250)
+            );
+    verticalLayout->Add(logo, 0,
+                        wxALIGN_CENTER | wxALL, 20);
+
+    int labelWidth = 120, fieldWidth = 240;
     wxString default_server_host = "5035";
     this->_serverAddressField = new InputField(
             this,
-            "Server Address",
-            100,
+            "Server Address:",
+            labelWidth,
             default_server_host,
-            240);
-    verticalLayout->Add(this->_serverAddressField, 0,wxALIGN_CENTER, 10);
+            fieldWidth);
+    verticalLayout->Add(this->_serverAddressField, 0,wxALIGN_CENTER | wxALL, 10);
 
+    wxString default_server_port = "123";
+    this->_serverPortField = new InputField(
+            this,
+            "Server Port:",
+            labelWidth,
+            default_server_port,
+            fieldWidth
+            );
+    verticalLayout->Add(this->_serverPortField, 0, wxALIGN_CENTER | wxALL, 10);
 
+    this->_playerNameField = new InputField(
+            this,
+            "Player name:",
+            labelWidth,
+            "",
+            fieldWidth
+            );
+    verticalLayout->Add(this->_playerNameField, 0, wxALIGN_CENTER | wxALL, 10);
+
+    wxButton* connectButton = new wxButton(this, wxID_ANY, "Connect", wxDefaultPosition, wxSize(100, 50));
+
+    verticalLayout->Add(connectButton, 0, wxALIGN_RIGHT | wxALL, 15);
 
     this->SetSizerAndFit(verticalLayout);
 }

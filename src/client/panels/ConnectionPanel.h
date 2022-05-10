@@ -8,7 +8,7 @@
 
 #include <wx/wx.h>
 #include "../uiElements/InputField.h"
-
+#include "../uiElements/ImagePanel.h"
 
 class ConnectionPanel : public wxPanel {
 
@@ -21,8 +21,8 @@ public:
 
 private:
     InputField* _serverAddressField;
-//    InputField* _serverPortField;
-//    InputField* _playerNameField;
+    InputField* _serverPortField;
+    InputField* _playerNameField;
 
 };
 
