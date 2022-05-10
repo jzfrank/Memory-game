@@ -15,9 +15,9 @@ class ConnectionPanel : public wxPanel {
 public:
     ConnectionPanel(wxWindow* parent);
 
-//    wxString getServerAddress();
-//    wxString getServerPort();
-//    wxString getPlayerName();
+    wxString getServerAddress();
+    wxString getServerPort();
+    wxString getPlayerName();
 
 private:
     InputField* _serverAddressField;

@@ -43,8 +43,8 @@ void ImagePanel::paintEvent(wxPaintEvent &event) {
     if (newWidth != this->_width || newHeight != this->_height) {
         wxImage transformed;
 
-        std::cout << "old width, height: " << this->_width << ", " << this->_height << std::endl;
-        std::cout << "new width, height: " << newWidth << ", " << newHeight << std::endl;
+//        std::cout << "old width, height: " << this->_width << ", " << this->_height << std::endl;
+//        std::cout << "new width, height: " << newWidth << ", " << newHeight << std::endl;
 
         if (this->_rotation == 0.0) {
             transformed = this->_image.Scale(newWidth, newHeight, wxIMAGE_QUALITY_HIGH);
@@ -59,7 +59,7 @@ void ImagePanel::paintEvent(wxPaintEvent &event) {
 
         deviceContext.DrawBitmap(this->_bitmap, 0, 0, false);
     } else {
-        std::cout << "old w,h equal new w,h" << std::endl;
+//        std::cout << "old w,h equal new w,h" << std::endl;
         deviceContext.DrawBitmap(this->_bitmap, 0, 0, false);
     }
 

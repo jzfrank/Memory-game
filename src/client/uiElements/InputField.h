@@ -10,7 +10,7 @@ class InputField : public wxPanel {
 public:
     InputField(wxWindow* parent, const wxString& labelText, int labelWidth,
                const wxString& fieldValue, int fieldWidth);
-//    wxString getValue();
+    wxString getValue();
 
 private:
     wxStaticText* _label;

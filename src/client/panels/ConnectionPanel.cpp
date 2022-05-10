@@ -56,3 +56,15 @@ ConnectionPanel::ConnectionPanel(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 
     this->SetSizerAndFit(verticalLayout);
 }
+
+wxString ConnectionPanel::getServerAddress() {
+    return this->_serverAddressField->getValue();
+}
+
+wxString ConnectionPanel::getServerPort() {
+    return this->_serverPortField->getValue();
+}
+
+wxString ConnectionPanel::getPlayerName() {
+    return this->_playerNameField->getValue();
+}

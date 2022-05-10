@@ -33,3 +33,7 @@ InputField::InputField(wxWindow *parent, const wxString &labelText,
 
     this->SetSizerAndFit(horizontalLayout);
 }
+
+wxString InputField::getValue() {
+    return this->_field->GetValue();
+}
