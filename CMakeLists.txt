@@ -23,7 +23,7 @@ add_executable(memory_game
         src/client/uiElements/ImagePanel.cpp
         src/client/uiElements/ImagePanel.h
         src/client/panels/MainGamePanel.cpp
-        src/client/panels/MainGamePanel.h)
+        src/client/panels/MainGamePanel.h src/common/game_state/game_state.cpp src/common/game_state/game_state.h src/common/cards/card.cpp src/common/cards/card.h src/common/cards/card_board.cpp src/common/cards/card_board.h)
 
 # copy assets (images) to binary directory
 file(INSTALL assets DESTINATION ${CMAKE_BINARY_DIR})
