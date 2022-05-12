@@ -93,16 +93,12 @@ void CardBoard::flipCard(int row, int col) {
     {
         this->_cards[row][col]->flip();
         this->turned_cards_position.push_back(std::vector<int>{row, col});
-        if (this->turned_cards_position.size() == 2) {
-//            std::cout << this->isVanishable(
+//        if (this->turned_cards_position.size() == 2) {
+//            this->vanishPairs(
 //                    this->turned_cards_position[0][0], this->turned_cards_position[0][1],
 //                    this->turned_cards_position[1][0], this->turned_cards_position[1][1]
-//            ) << std::endl;
-            this->vanishPairs(
-                    this->turned_cards_position[0][0], this->turned_cards_position[0][1],
-                    this->turned_cards_position[1][0], this->turned_cards_position[1][1]
-            );
-        }
+//            );
+//        }
     }
 
 }
@@ -113,4 +109,12 @@ int CardBoard::getAvailableCards() {
 
 bool CardBoard::processEndGame() {
     return this->cards_num == 0;
+}
+
+int CardBoard::getNofTurnedCards() {
+    return this->turned_cards_position.size();
+}
+
+std::vector<std::vector<int>> CardBoard::get_turned_cards_position() {
+    return this->turned_cards_position;
 }

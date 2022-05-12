@@ -10,6 +10,7 @@
 #include "panels/MainGamePanel.h"
 //#include "network/ResponseListenerThread.h"
 #include "../common/game_state/GameState.h"
+#include "../common/game_state/player/Player.h"
 
 class GameController
 {
@@ -25,6 +26,7 @@ private:
     static ConnectionPanel* _connectionPanel;
     static MainGamePanel* _mainGamePanel;
 
+    static Player* _me;
     static GameState* _currentGameState;
 };
 

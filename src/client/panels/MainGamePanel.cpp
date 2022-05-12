@@ -52,7 +52,6 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
             card->SetToolTip("card: click to flip");
             card->SetCursor(wxCursor(wxCURSOR_HAND));
             card->Bind(wxEVT_LEFT_UP, [row, col, this] (wxMouseEvent & event) {
-//                std::cout << row << col << std::endl;
                 GameController::flipCard(row, col);
             });
 //            horizontalLayout->Add(card, 0, wxALIGN_CENTER | wxALL, 20);

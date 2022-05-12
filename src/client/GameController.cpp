@@ -8,8 +8,8 @@
 GameWindow* GameController::_gameWindow = nullptr;
 ConnectionPanel* GameController::_connectionPanel = nullptr;
 MainGamePanel* GameController::_mainGamePanel = nullptr;
-//
-//player* GameController::_me = nullptr;
+
+Player* GameController::_me = nullptr;
 GameState* GameController::_currentGameState = nullptr;
 
 void GameController::init(GameWindow *gameWindow)
@@ -34,6 +34,7 @@ void GameController::init(GameWindow *gameWindow)
 void GameController::connectToServer() {
     GameController::_currentGameState = new GameState();
     GameController::_gameWindow->showPanel(GameController::_mainGamePanel);
+    GameController::_gameWindow->setStatus("Connected");
     GameController::_mainGamePanel->buildGameState(_currentGameState);
 }
 
@@ -43,9 +44,6 @@ void GameController::updateGameState(GameState *newGameState) {
 
     GameController::_currentGameState = newGameState;
 
-//    if (oldGameState != nullptr) {
-//        delete oldGameState;
-//    }
 
     // TODO: if game is finished, show game finished message
 
@@ -56,13 +54,19 @@ void GameController::updateGameState(GameState *newGameState) {
 }
 
 void GameController::flipCard(int row, int col) {
-//    std::cout << "before flipping card.isFront=" <<
-//        GameController::_currentGameState->getCardBoard()->getCards()[row][col]->getIsFront() << std::endl;
     GameController::_currentGameState->flipCard(row, col);
+    CardBoard * cardBoard = GameController::_currentGameState->getCardBoard();
+    if (cardBoard->getNofTurnedCards() == 2) {
+        // either the same card then vanish
+        // or different card but let next player to play
+        std::vector<std::vector<int>> turned_cards_position = cardBoard->get_turned_cards_position();
+        cardBoard->vanishPairs(
+                turned_cards_position[0][0], turned_cards_position[0][1],
+                turned_cards_position[1][0], turned_cards_position[1][1]
+            );
+        // TODO: cardBoard->handleTurnedCards()
 
-//    std::cout << "MainGamePanel::flipCard is called" << std::endl;
-//    std::cout << "flipped card.isFront=" <<
-//        GameController::_currentGameState->getCardBoard()->getCards()[row][col]->getIsFront() << std::endl;
-
+        // TODO: set current player to be the next
+    }
     GameController::updateGameState(GameController::_currentGameState);
 }
