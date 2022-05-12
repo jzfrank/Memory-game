@@ -55,18 +55,20 @@ void GameController::updateGameState(GameState *newGameState) {
 
 void GameController::flipCard(int row, int col) {
     GameController::_currentGameState->flipCard(row, col);
+    GameController::updateGameState(GameController::_currentGameState);
     CardBoard * cardBoard = GameController::_currentGameState->getCardBoard();
     if (cardBoard->getNofTurnedCards() == 2) {
         // either the same card then vanish
         // or different card but let next player to play
-        std::vector<std::vector<int>> turned_cards_position = cardBoard->get_turned_cards_position();
-        cardBoard->vanishPairs(
-                turned_cards_position[0][0], turned_cards_position[0][1],
-                turned_cards_position[1][0], turned_cards_position[1][1]
-            );
-        // TODO: cardBoard->handleTurnedCards()
+        cardBoard->handleTurnedCards();
+        std::cout << "next player" << std::endl;
 
-        // TODO: set current player to be the next
+        // Show message that current turn is finished
+        std::string message = "Your turn is finished";
+        std::string title = "Message";
+        wxMessageDialog dialogBox = wxMessageDialog(nullptr, message, title, wxICON_NONE);
+        dialogBox.ShowModal();
     }
+
     GameController::updateGameState(GameController::_currentGameState);
 }

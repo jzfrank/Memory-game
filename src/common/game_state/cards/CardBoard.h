@@ -19,18 +19,19 @@ private:
     std::vector<std::vector<int>> turned_cards_position; // stores positions of flipped cards
 
 public:
-    CardBoard();
+    CardBoard(int row_num=3, int col_num=4);
     ~CardBoard();
 
     void flipCard(int row, int col);
     bool isVanishable(int r1, int c1, int r2, int c2); // check if two cards are vanishable
     void vanishPairs(int r1, int c1, int r2, int c2); // vanish a pair of cards if possible
     bool processEndGame(); // check if the number of cards remaining is 0
+    void handleTurnedCards(); // called when the number of turned cards reaches 2
+
     //accessors
     int getAvailableCards(); // returns the number of available cards on the cardboard
     std::vector<std::vector<Card*>> getCards();
     int getNofTurnedCards();
     std::vector<std::vector<int>> get_turned_cards_position();
-
 };
 #endif //MEMORY_GAME_CARDBOARD_H

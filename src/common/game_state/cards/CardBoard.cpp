@@ -7,9 +7,9 @@
 #include <random>
 #include <vector>
 
-CardBoard::CardBoard() {
-    this->row_num = 3;
-    this->col_num = 4;
+CardBoard::CardBoard(int row_num, int col_num) {
+    this->row_num = row_num;
+    this->col_num = col_num;
     this->cards_num = this->row_num * this->col_num;
     std::vector<std::string> cards_values = std::vector<std::string>(this->cards_num);
     for (int i=0; i < this->cards_num; i++) {
@@ -20,7 +20,10 @@ CardBoard::CardBoard() {
             cards_values[i] = "Q";
         }
     }
-    // TODO: implement shuffle
+    // shuffle
+    auto rng = std::default_random_engine {};
+    std::shuffle(std::begin(cards_values),
+                 std::end(cards_values), rng);
 
     for (int i=0; i < this->row_num; i++) {
         this->_cards.push_back(std::vector<Card *>(col_num));
@@ -79,10 +82,7 @@ void CardBoard::vanishPairs(int r1, int c1, int r2, int c2) {
         old_card = this->_cards[r2][c2];
         this->_cards[r2][c2] = nullptr;
         delete old_card;
-
-//        std::cout << "_cards[r2][c2] is nullptr: " << (_cards[r2][c2] == nullptr) << std::endl;
         this->cards_num -= 2;
-        this->turned_cards_position.clear();
     }
 }
 
@@ -93,15 +93,35 @@ void CardBoard::flipCard(int row, int col) {
     {
         this->_cards[row][col]->flip();
         this->turned_cards_position.push_back(std::vector<int>{row, col});
-//        if (this->turned_cards_position.size() == 2) {
-//            this->vanishPairs(
-//                    this->turned_cards_position[0][0], this->turned_cards_position[0][1],
-//                    this->turned_cards_position[1][0], this->turned_cards_position[1][1]
-//            );
-//        }
     }
 
 }
+
+void CardBoard::handleTurnedCards() {
+    if (this->turned_cards_position.size() == 2) {
+        // make the pair vanish if their value is of the same
+        this->vanishPairs(
+                this->turned_cards_position[0][0], this->turned_cards_position[0][1],
+                this->turned_cards_position[1][0], this->turned_cards_position[1][1]
+        );
+        // no matter if the two cards have the same value,
+        // we clear the number of turned cards
+        // and turn cards to the back cover
+        for (int i=0; i < this->turned_cards_position.size(); i++) {
+            int row = this->turned_cards_position[i][0];
+            int col = this->turned_cards_position[i][1];
+            std::cout << row << ", " << col << std::endl;
+            if (this->_cards[row][col] != nullptr) {
+                this->_cards[row][col]->flip();
+            }
+        }
+        this->turned_cards_position.clear();
+    }
+
+}
+
+
+// accessors
 
 int CardBoard::getAvailableCards() {
     return this->cards_num;
