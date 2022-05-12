@@ -1,3 +1,0 @@
-/home/parallels/Desktop/memory-game/cmake-build-debug/CMakeFiles/memory_game.dir
-/home/parallels/Desktop/memory-game/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/parallels/Desktop/memory-game/cmake-build-debug/CMakeFiles/rebuild_cache.dir
