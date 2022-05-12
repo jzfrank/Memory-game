@@ -33,3 +33,6 @@
 
 # Mac OS
 *.DS_Store
+
+# debug files
+cmake-build-debug/
