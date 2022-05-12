@@ -113,29 +113,29 @@ build CMakeFiles/memory_game.dir/src/client/panels/MainGamePanel.cpp.o: CXX_COMP
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/client/panels
 
-build CMakeFiles/memory_game.dir/src/common/game_state/game_state.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/common/game_state/game_state.cpp || cmake_object_order_depends_target_memory_game
+build CMakeFiles/memory_game.dir/src/common/game_state/GameState.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/common/game_state/GameState.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
-  DEP_FILE = CMakeFiles/memory_game.dir/src/common/game_state/game_state.cpp.o.d
+  DEP_FILE = CMakeFiles/memory_game.dir/src/common/game_state/GameState.cpp.o.d
   FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
   OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/common/game_state
 
-build CMakeFiles/memory_game.dir/src/common/cards/card.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/common/cards/card.cpp || cmake_object_order_depends_target_memory_game
+build CMakeFiles/memory_game.dir/src/common/game_state/cards/Card.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/common/game_state/cards/Card.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
-  DEP_FILE = CMakeFiles/memory_game.dir/src/common/cards/card.cpp.o.d
+  DEP_FILE = CMakeFiles/memory_game.dir/src/common/game_state/cards/Card.cpp.o.d
   FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
-  OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/common/cards
+  OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/common/game_state/cards
 
-build CMakeFiles/memory_game.dir/src/common/cards/card_board.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/common/cards/card_board.cpp || cmake_object_order_depends_target_memory_game
+build CMakeFiles/memory_game.dir/src/common/game_state/cards/CardBoard.cpp.o: CXX_COMPILER__memory_game_Debug /home/parallels/Desktop/memory-game/src/common/game_state/cards/CardBoard.cpp || cmake_object_order_depends_target_memory_game
   DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
-  DEP_FILE = CMakeFiles/memory_game.dir/src/common/cards/card_board.cpp.o.d
+  DEP_FILE = CMakeFiles/memory_game.dir/src/common/game_state/cards/CardBoard.cpp.o.d
   FLAGS = -pthread -g -std=gnu++2a
   INCLUDES = -isystem /usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0 -isystem /usr/include/wx-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir
-  OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/common/cards
+  OBJECT_FILE_DIR = CMakeFiles/memory_game.dir/src/common/game_state/cards
 
 
 # =============================================================================
@@ -145,7 +145,7 @@ build CMakeFiles/memory_game.dir/src/common/cards/card_board.cpp.o: CXX_COMPILER
 #############################################
 # Link the executable memory_game
 
-build memory_game: CXX_EXECUTABLE_LINKER__memory_game_Debug CMakeFiles/memory_game.dir/src/client/main.cpp.o CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o CMakeFiles/memory_game.dir/src/client/windows/GameWindow.cpp.o CMakeFiles/memory_game.dir/src/client/panels/ConnectionPanel.cpp.o CMakeFiles/memory_game.dir/src/client/GameController.cpp.o CMakeFiles/memory_game.dir/src/client/uiElements/InputField.cpp.o CMakeFiles/memory_game.dir/src/client/uiElements/ImagePanel.cpp.o CMakeFiles/memory_game.dir/src/client/panels/MainGamePanel.cpp.o CMakeFiles/memory_game.dir/src/common/game_state/game_state.cpp.o CMakeFiles/memory_game.dir/src/common/cards/card.cpp.o CMakeFiles/memory_game.dir/src/common/cards/card_board.cpp.o
+build memory_game: CXX_EXECUTABLE_LINKER__memory_game_Debug CMakeFiles/memory_game.dir/src/client/main.cpp.o CMakeFiles/memory_game.dir/src/client/app/Memory.cpp.o CMakeFiles/memory_game.dir/src/client/windows/GameWindow.cpp.o CMakeFiles/memory_game.dir/src/client/panels/ConnectionPanel.cpp.o CMakeFiles/memory_game.dir/src/client/GameController.cpp.o CMakeFiles/memory_game.dir/src/client/uiElements/InputField.cpp.o CMakeFiles/memory_game.dir/src/client/uiElements/ImagePanel.cpp.o CMakeFiles/memory_game.dir/src/client/panels/MainGamePanel.cpp.o CMakeFiles/memory_game.dir/src/common/game_state/GameState.cpp.o CMakeFiles/memory_game.dir/src/common/game_state/cards/Card.cpp.o CMakeFiles/memory_game.dir/src/common/game_state/cards/CardBoard.cpp.o
   FLAGS = -pthread -g
   LINK_LIBRARIES = -L/usr/lib/x86_64-linux-gnu  -pthread  -lwx_gtk3u_core-3.0  -lwx_baseu-3.0
   OBJECT_DIR = CMakeFiles/memory_game.dir

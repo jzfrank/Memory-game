@@ -7,17 +7,19 @@
 
 #include <string>
 
-class card {
+class Card {
 private:
-    int value;
-    bool is_front;
+    std::string value;
+    bool isFront;
 public:
-    card(int val);
-    ~card();
+    Card(std::string val);
+    ~Card();
+
+    void flip();
 
     // accessors
-    int get_value() const noexcept;
-    bool get_is_front();
+    std::string getValue() const noexcept;
+    bool getIsFront();
 
 };
 #endif //MEMORY_GAME_CARD_H

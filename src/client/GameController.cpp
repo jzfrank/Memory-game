@@ -10,7 +10,7 @@ ConnectionPanel* GameController::_connectionPanel = nullptr;
 MainGamePanel* GameController::_mainGamePanel = nullptr;
 //
 //player* GameController::_me = nullptr;
-//game_state* GameController::_currentGameState = nullptr;
+GameState* GameController::_currentGameState = nullptr;
 
 void GameController::init(GameWindow *gameWindow)
 {
@@ -32,5 +32,37 @@ void GameController::init(GameWindow *gameWindow)
 }
 
 void GameController::connectToServer() {
+    GameController::_currentGameState = new GameState();
     GameController::_gameWindow->showPanel(GameController::_mainGamePanel);
+    GameController::_mainGamePanel->buildGameState(_currentGameState);
+}
+
+void GameController::updateGameState(GameState *newGameState) {
+
+    GameState * oldGameState = GameController::_currentGameState;
+
+    GameController::_currentGameState = newGameState;
+
+//    if (oldGameState != nullptr) {
+//        delete oldGameState;
+//    }
+
+    // TODO: if game is finished, show game finished message
+
+    GameController::_gameWindow->showPanel(GameController::_mainGamePanel);
+
+    GameController::_mainGamePanel->buildGameState(_currentGameState);
+
+}
+
+void GameController::flipCard(int row, int col) {
+//    std::cout << "before flipping card.isFront=" <<
+//        GameController::_currentGameState->getCardBoard()->getCards()[row][col]->getIsFront() << std::endl;
+    GameController::_currentGameState->flipCard(row, col);
+
+//    std::cout << "MainGamePanel::flipCard is called" << std::endl;
+//    std::cout << "flipped card.isFront=" <<
+//        GameController::_currentGameState->getCardBoard()->getCards()[row][col]->getIsFront() << std::endl;
+
+    GameController::updateGameState(GameController::_currentGameState);
 }
