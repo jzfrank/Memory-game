@@ -29,7 +29,7 @@ add_executable(memory_game
         src/common/game_state/cards/Card.cpp
         src/common/game_state/cards/Card.h
         src/common/game_state/cards/CardBoard.cpp
-        src/common/game_state/cards/CardBoard.h src/common/game_state/player/Player.cpp src/common/game_state/player/Player.h)
+        src/common/game_state/cards/CardBoard.h src/common/game_state/player/Player.cpp src/common/game_state/player/Player.h src/common/exceptions/MemoryException.h)
 
 # copy assets (images) to binary directory
 file(INSTALL assets DESTINATION ${CMAKE_BINARY_DIR})
