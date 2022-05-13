@@ -64,7 +64,7 @@ void GameController::flipCard(int row, int col) {
         std::cout << "next player" << std::endl;
 
         // Show message that current turn is finished
-        // TODO: add timeout 
+        // TODO: add timeout
         std::string message = "Your turn is finished";
         std::string title = "Message";
         wxMessageDialog dialogBox = wxMessageDialog(nullptr, message, title, wxICON_NONE);
