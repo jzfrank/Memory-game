@@ -29,7 +29,7 @@ add_executable(memory_game
         src/common/game_state/cards/Card.cpp
         src/common/game_state/cards/Card.h
         src/common/game_state/cards/CardBoard.cpp
-        src/common/game_state/cards/CardBoard.h src/common/game_state/player/Player.cpp src/common/game_state/player/Player.h src/common/exceptions/MemoryException.h src/common/serialization/json_utils.h src/common/serialization/serializable.h src/common/serialization/serializable_value.h src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h src/common/serialization/uuid_generator.h src/common/serialization/value_type_helpers.h src/common/serialization/vector_utils.h)
+        src/common/game_state/cards/CardBoard.h src/common/game_state/player/Player.cpp src/common/game_state/player/Player.h src/common/exceptions/MemoryException.h src/common/serialization/json_utils.h src/common/serialization/serializable.h src/common/serialization/serializable_value.h src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h src/common/serialization/uuid_generator.h src/common/serialization/value_type_helpers.h src/common/serialization/vector_utils.h src/common/network/client/client_request.cpp src/common/network/client/client_request.h)
 
 # copy assets (images) to binary directory
 file(INSTALL assets DESTINATION ${CMAKE_BINARY_DIR})
