@@ -4,9 +4,9 @@
 
 #include "client_request.h"
 
-//#include "join_game_request.h"
-//#include "start_game_request.h"
-//#include "flip_card_request.h"
+#include "join_game_request.h"
+#include "start_game_request.h"
+#include "flip_card_request.h"
 
 
 #include <iostream>

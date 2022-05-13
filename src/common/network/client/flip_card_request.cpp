@@ -33,7 +33,7 @@ flip_card_request* flip_card_request::from_json(const rapidjson::Value &json) {
         return new flip_card_request(props, position);
     }
     else {
-        throw MemoryException("Could not find 'row' and 'col' in flip_card_request")
+        throw MemoryException("Could not find 'row' and 'col' in flip_card_request");
     }
 }
 

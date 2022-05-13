@@ -4,6 +4,9 @@ project(memory_game)
 
 set(CMAKE_CXX_STANDARD 20)
 
+include_directories(sockpp/include)
+include_directories(rapidjson/include)
+
 set(wxWidgets_ROOT_DIR </usr/include/wx-3.0>)
 set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base REQUIRED)

@@ -13,7 +13,6 @@
 #include "../../serialization/uuid_generator.h"
 #include "../../serialization/json_utils.h"
 
-#endif //MEMORY_GAME_CLIENT_REQUEST_H
 
 // Identifier for the different request types.
 // The RequestType is sent with every client_request to identify the type of client_request
@@ -68,3 +67,5 @@ public:
     [[nodiscard]] virtual std::string to_string() const;
 
 };
+
+#endif //MEMORY_GAME_CLIENT_REQUEST_H
