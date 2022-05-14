@@ -6,7 +6,7 @@
 
 GameState::GameState() {
     this->_players = std::vector<Player *>();
-    this->_cardBoard = new CardBoard(3, 4);
+    this->_cardBoard = new CardBoard();
     this->_is_started = false;
     this->_is_finished = false;
     this->_round_number = 0;

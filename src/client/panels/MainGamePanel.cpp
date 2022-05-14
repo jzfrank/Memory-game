@@ -22,7 +22,7 @@ void MainGamePanel::buildGameState(GameState *gameState) {
 void MainGamePanel::buildCardMatrix(GameState* gameState) {
 
     CardBoard * cardBoard = gameState->getCardBoard();
-    std::vector<std::vector<Card*>> cards = cardBoard->getCards();
+    std::vector<Card*> cards = cardBoard->getCards();
 
 //    wxBoxSizer* verticalLayout = new wxBoxSizer(wxVERTICAL);
     wxPoint cardStartPosition = MainGamePanel::tableCenter
