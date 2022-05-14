@@ -12,6 +12,8 @@
 #include "../../serialization/unique_serializable.h"
 #include "../../serialization/serializable_value.h"
 
+#define MEMORY_SERVER 1
+
 class Player : public unique_serializable {
 private:
     serializable_value<std::string> * _player_name;

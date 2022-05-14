@@ -5,8 +5,6 @@
 #include "Player.h"
 #include "../../exceptions/MemoryException.h"
 
-
-
 Player::Player(std::string name, int score) : unique_serializable() {
     this->_player_name = new serializable_value<std::string> (name);
     this->_score = new serializable_value<int> (score);

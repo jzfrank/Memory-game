@@ -49,11 +49,11 @@ rapidjson::Value *full_state_response::get_state_json() const {
 }
 
 #ifdef MEMORY_CLIENT
-void full_state_reponse::Process() const {
+void full_state_response::Process() const {
     try {
         GameState* state = GameState::from_json(*_state_json);
         GameController::updateGameState(state);
-    } catch {std::exception & e} {
+    } catch (std::exception & e) {
         std::cerr << "Failed to extract GameState from full_state_response" << std::endl
                   << e.what() << std::endl;
     }

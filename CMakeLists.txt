@@ -48,7 +48,7 @@ set(CLIENT_SOURCE_FILES
         src/client/uiElements/ImagePanel.cpp src/client/uiElements/ImagePanel.h
 #        # network
         src/client/network/ClientNetworkManager.cpp src/client/network/ClientNetworkManager.h
-#        src/requests/network/ResponseListenerThread.cpp src/requests/network/ResponseListenerThread.h
+        src/client/network/ResponseListenerThread.cpp src/client/network/ResponseListenerThread.h
         # game state
         src/common/game_state/cards/Card.cpp src/common/game_state/cards/Card.h
         src/common/game_state/cards/CardBoard.cpp src/common/game_state/cards/CardBoard.h
@@ -64,7 +64,6 @@ set(CLIENT_SOURCE_FILES
         src/common/network/responses/request_response.cpp src/common/network/responses/request_response.h
         src/common/network/responses/full_state_response.cpp src/common/network/responses/full_state_response.h
         # serialization
-
         src/common/serialization/serializable.h
         src/common/serialization/value_type_helpers.h
         src/common/serialization/vector_utils.h
@@ -77,7 +76,7 @@ set(CLIENT_SOURCE_FILES
 set(SERVER_SOURCE_FILES
         src/server/main.cpp
         src/server/game_instance.cpp src/server/game_instance.h
-#        src/server/game_instance_manager.cpp src/server/game_instance_manager.h
+        src/server/game_instance_manager.cpp src/server/game_instance_manager.h
         src/server/player_manager.cpp src/server/player_manager.h
         src/server/server_network_manager.cpp src/server/server_network_manager.h
         # game state
@@ -85,7 +84,7 @@ set(SERVER_SOURCE_FILES
         src/common/game_state/cards/CardBoard.cpp src/common/game_state/cards/CardBoard.h
         src/common/game_state/player/Player.cpp src/common/game_state/player/Player.h
         src/common/game_state/GameState.cpp src/common/game_state/GameState.h
-        # requests requests
+        # client requests
         src/common/network/requests/client_request.cpp src/common/network/requests/client_request.h
         src/common/network/requests/flip_card_request.cpp src/common/network/requests/flip_card_request.h
         src/common/network/requests/join_game_request.cpp src/common/network/requests/join_game_request.h
@@ -102,7 +101,7 @@ set(SERVER_SOURCE_FILES
         src/common/serialization/json_utils.h
         src/common/serialization/uuid_generator.h
         src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h
-#        src/server/request_handler.h src/server/request_handler.cpp
+        src/server/request_handler.h src/server/request_handler.cpp
         )
 
 

@@ -135,4 +135,4 @@ bool game_instance_manager::try_remove_player(Player *player, const std::string&
 
 bool game_instance_manager::try_remove_player(Player *player, game_instance *&game_instance_ptr, std::string &err) {
     return game_instance_ptr->try_remove_player(player, err);
-P
+}

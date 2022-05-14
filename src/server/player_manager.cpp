@@ -23,6 +23,7 @@ bool player_manager::add_or_get_player(std::string name, const std::string& play
         return true;
     }
     player_ptr = new Player(player_id, name, 0);
+//    player_ptr = new Player(std::string("player_id"), std::string("name"), 0);
     _rw_lock.lock();    // exclusive
     player_manager::_players_lut.insert({player_id, player_ptr});
     _rw_lock.unlock();

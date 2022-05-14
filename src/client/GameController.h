@@ -22,11 +22,10 @@ public:
     static void startGame();
     static void flipCard(int row, int col);
 
-
+    static wxEvtHandler* getMainThreadEventHandler();
     static void showError(const std::string & title, const std::string & message);
     static void showStatus(const std::string & message);
 
-    wxEvtHandler* getMainThreadEventHandler();
 //    static void showNewRoundMessage(GameState* oldGameState, GameState* newGameState);
 //    static void showGameOverMessage();
 

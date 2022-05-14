@@ -4,6 +4,8 @@
 
 #include "server_network_manager.h"
 
+#define MEMORY_SERVER 1
+
 int main() {
     // create server_network_manager, which listens endlessly for new connections
     server_network_manager server;
