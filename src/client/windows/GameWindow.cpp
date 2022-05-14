@@ -22,7 +22,7 @@ GameWindow::GameWindow(const wxString & title, const wxPoint & pos, const wxSize
     wxColor lightPurple = wxColor(151, 114, 251);
     this->SetBackgroundColour(lightPurple);
 
-    // set the mimimum size of the window
+    // set the minimum size of the window
     this->SetMinSize(wxSize(1000, 720));
 }
 

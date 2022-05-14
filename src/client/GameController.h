@@ -8,7 +8,7 @@
 #include "windows/GameWindow.h"
 #include "panels/ConnectionPanel.h"
 #include "panels/MainGamePanel.h"
-//#include "network/ResponseListenerThread.h"
+#include "network/ResponseListenerThread.h"
 #include "../common/game_state/GameState.h"
 #include "../common/game_state/player/Player.h"
 
@@ -25,6 +25,10 @@ public:
 
     static void showError(const std::string & title, const std::string & message);
     static void showStatus(const std::string & message);
+
+    wxEvtHandler* getMainThreadEventHandler();
+//    static void showNewRoundMessage(GameState* oldGameState, GameState* newGameState);
+//    static void showGameOverMessage();
 
 private:
     static GameWindow* _gameWindow;
