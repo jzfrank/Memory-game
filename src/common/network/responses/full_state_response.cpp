@@ -58,5 +58,4 @@ void full_state_reponse::Process() const {
                   << e.what() << std::endl;
     }
 }
-
 #endif

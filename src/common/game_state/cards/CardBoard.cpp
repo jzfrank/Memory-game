@@ -41,11 +41,11 @@ bool CardBoard::isVanishable(int r1, int c1, int r2, int c2) {
     Card * card1 = nullptr, * card2 = nullptr;
     for (int i=0; i < _cards.size(); i++) {
         if (_cards[i] != nullptr
-        && _cards[i]->getPosition() == std::vector<int>{r1, c1}) {
+        && _cards[i]->getPosition() == std::tuple<int, int>{r1, c1}) {
             card1 = _cards[i];
         }
         else if (_cards[i] != nullptr
-                 && _cards[i]->getPosition() == std::vector<int>{r2, c2}) {
+                 && _cards[i]->getPosition() == std::tuple<int, int>{r2, c2}) {
             card2 = _cards[i];
         }
     }
@@ -61,13 +61,13 @@ void CardBoard::vanishPairs(int r1, int c1, int r2, int c2) {
         Card * old_card = nullptr;
         for (int i=0; i<_cards.size(); i++) {
             if (_cards[i] != nullptr
-                && _cards[i]->getPosition() == std::vector<int>{r1, c1}) {
+                && _cards[i]->getPosition() == std::tuple<int, int>{r1, c1}) {
                 old_card = _cards[i];
                 _cards[i] = nullptr;
                 delete old_card;
             }
             else if (_cards[i] != nullptr
-                     && _cards[i]->getPosition() == std::vector<int>{r2, c2}) {
+                     && _cards[i]->getPosition() == std::tuple<int, int>{r2, c2}) {
                 old_card = _cards[i];
                 _cards[i] = nullptr;
                 delete old_card;
@@ -80,7 +80,7 @@ void CardBoard::flipCard(int row, int col) {
     Card * card = nullptr;
     for (int i=0; i < _cards.size(); i++) {
         if (_cards[i] != nullptr
-        && _cards[i]->getPosition() == std::vector<int>{row, col}) {
+        && _cards[i]->getPosition() == std::tuple<int, int>{row, col}) {
             card = _cards[i];
             card->flip();
             break;
@@ -98,8 +98,8 @@ void CardBoard::handleTurnedCards() {
     }
     if (turned_cards_position.size() == 2) {
         this->vanishPairs(
-                turned_cards_position[0][0], turned_cards_position[0][1],
-                turned_cards_position[1][0], turned_cards_position[1][1]
+                std::get<0>(turned_cards_position[0]), std::get<1>(turned_cards_position[0]),
+                std::get<0>(turned_cards_position[1]), std::get<1>(turned_cards_position[1])
                 );
     }
 }

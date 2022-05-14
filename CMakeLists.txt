@@ -47,7 +47,7 @@ set(CLIENT_SOURCE_FILES
         src/client/uiElements/InputField.cpp src/client/uiElements/InputField.h
         src/client/uiElements/ImagePanel.cpp src/client/uiElements/ImagePanel.h
 #        # network
-#        src/requests/network/ClientNetworkManager.cpp src/requests/network/ClientNetworkManager.h
+        src/client/network/ClientNetworkManager.cpp src/client/network/ClientNetworkManager.h
 #        src/requests/network/ResponseListenerThread.cpp src/requests/network/ResponseListenerThread.h
         # game state
         src/common/game_state/cards/Card.cpp src/common/game_state/cards/Card.h
@@ -71,7 +71,7 @@ set(CLIENT_SOURCE_FILES
         src/common/serialization/serializable_value.h
         src/common/serialization/json_utils.h
         src/common/serialization/uuid_generator.h
-        src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h)
+        src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h src/client/network/ClientNetworkManager.cpp src/client/network/ClientNetworkManager.h src/client/network/ResponseListenerThread.cpp src/client/network/ResponseListenerThread.h)
 
 # define a variable SERVER_SOURCE_FILES that contains the paths to all source files required to compile the server executable
 set(SERVER_SOURCE_FILES
