@@ -7,68 +7,50 @@
 #include <random>
 #include <vector>
 
-CardBoard::CardBoard(int row_num, int col_num) {
-    this->row_num = row_num;
-    this->col_num = col_num;
-    this->cards_num = this->row_num * this->col_num;
-    std::vector<int> cards_values = std::vector<std::string>(this->cards_num);
-    for (int i=0; i < this->cards_num; i++) {
-        if (i % 2 == 0) {
-            cards_values[i] = 1;
-        }
-        else {
-            cards_values[i] = 2;
-        }
-    }
-    // shuffle
-    auto rng = std::default_random_engine {};
-    std::shuffle(std::begin(cards_values),
-                 std::end(cards_values), rng);
+#include "../../serialization/vector_utils.h"
+#include "../../exceptions/MemoryException.h"
 
-    for (int i=0; i < this->row_num; i++) {
-        this->_cards.push_back(std::vector<Card *>(col_num));
-        for (int j = 0; j < this->col_num; j++) {
-            this->_cards[i][j] = new Card(cards_values[col_num * i + j]);
-        }
-    }
-}
+// deserialization constructor
+CardBoard::CardBoard(std::string id, std::vector<Card*> & cards)
+    : unique_serializable(id),
+      _cards(cards)
+{ }
+
+// from_diff constructor
+CardBoard::CardBoard(std::string id) : unique_serializable(id)
+        {}
+
+CardBoard::CardBoard(std::vector<Card*> & cards)
+                     : unique_serializable(), _cards(cards)
+                     {}
 
 CardBoard::~CardBoard() {
     for (int i=0; i < this->_cards.size(); i++) {
-        for (int j=0; j < this->_cards[i].size(); j++) {
-            delete this->_cards[i][j];
-        }
-        this->_cards[i].clear();
+        delete this->_cards[i];
     }
     this->_cards.clear();
 }
 
-std::vector<std::vector<Card *>> CardBoard::getCards() {
+std::vector<Card *> CardBoard::getCards() {
     return this->_cards;
 }
 
 bool CardBoard::isVanishable(int r1, int c1, int r2, int c2) {
-    // check if the given positions are valid
-    if ((r1 < 0 || r1 >= this->_cards.size() || r2 < 0 || r2 >= this->_cards.size())
-    ||  (c1 < 0 || c1 >= this->_cards[0].size() || c2 < 0 || c2 >= this->_cards[0].size()) )
-    {
-        return false;
+    if (r1 == r2 && c1 == c2) return false;
+
+    Card * card1 = nullptr, * card2 = nullptr;
+    for (int i=0; i < _cards.size(); i++) {
+        if (_cards[i] != nullptr
+        && _cards[i]->getPosition() == std::vector<int>{r1, c1}) {
+            card1 = _cards[i];
+        }
+        else if (_cards[i] != nullptr
+                 && _cards[i]->getPosition() == std::vector<int>{r2, c2}) {
+            card2 = _cards[i];
+        }
     }
-    // check if two cards are of same value
-    if (r1 == r2 && c1 == c2) {
-        // the same card
-        return false;
-    }
-    else if (this->_cards[r1][c1] == nullptr || this->_cards[r2][c2] == nullptr) {
-        // cards already vanished
-        return false;
-    }
-    else if (this->_cards[r1][c1]->getValue() == this->_cards[r2][c2]->getValue()) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    if (card1 == nullptr || card2 == nullptr) return false;
+    else return (card1->getValue() == card2->getValue());
 }
 
 void CardBoard::vanishPairs(int r1, int c1, int r2, int c2) {
@@ -76,65 +58,111 @@ void CardBoard::vanishPairs(int r1, int c1, int r2, int c2) {
         return;
     }
     else {
-        Card * old_card = this->_cards[r1][c1];
-        this->_cards[r1][c1] = nullptr;
-        delete old_card;
-        old_card = this->_cards[r2][c2];
-        this->_cards[r2][c2] = nullptr;
-        delete old_card;
-        this->cards_num -= 2;
+        Card * old_card = nullptr;
+        for (int i=0; i<_cards.size(); i++) {
+            if (_cards[i] != nullptr
+                && _cards[i]->getPosition() == std::vector<int>{r1, c1}) {
+                old_card = _cards[i];
+                _cards[i] = nullptr;
+                delete old_card;
+            }
+            else if (_cards[i] != nullptr
+                     && _cards[i]->getPosition() == std::vector<int>{r2, c2}) {
+                old_card = _cards[i];
+                _cards[i] = nullptr;
+                delete old_card;
+            }
+        }
     }
 }
 
 void CardBoard::flipCard(int row, int col) {
-    if (this->_cards[row][col] != nullptr
-    && !this->_cards[row][col]->getIsFront()
-    && this->turned_cards_position.size() < 2)
-    {
-        this->_cards[row][col]->flip();
-        this->turned_cards_position.push_back(std::vector<int>{row, col});
+    Card * card = nullptr;
+    for (int i=0; i < _cards.size(); i++) {
+        if (_cards[i] != nullptr
+        && _cards[i]->getPosition() == std::vector<int>{row, col}) {
+            card = _cards[i];
+            card->flip();
+            break;
+        }
     }
-
 }
 
 void CardBoard::handleTurnedCards() {
-    if (this->turned_cards_position.size() == 2) {
-        // make the pair vanish if their value is of the same
-        this->vanishPairs(
-                this->turned_cards_position[0][0], this->turned_cards_position[0][1],
-                this->turned_cards_position[1][0], this->turned_cards_position[1][1]
-        );
-        // no matter if the two cards have the same value,
-        // we clear the number of turned cards
-        // and turn cards to the back cover
-        for (int i=0; i < this->turned_cards_position.size(); i++) {
-            int row = this->turned_cards_position[i][0];
-            int col = this->turned_cards_position[i][1];
-            std::cout << row << ", " << col << std::endl;
-            if (this->_cards[row][col] != nullptr) {
-                this->_cards[row][col]->flip();
-            }
+    std::vector<std::tuple<int, int>> turned_cards_position;
+    for (int i=0; i < _cards.size(); i++) {
+        if (_cards[i] != nullptr
+        && !_cards[i]->getIsFront()) {
+            turned_cards_position.push_back(_cards[i]->getPosition());
         }
-        this->turned_cards_position.clear();
     }
-
+    if (turned_cards_position.size() == 2) {
+        this->vanishPairs(
+                turned_cards_position[0][0], turned_cards_position[0][1],
+                turned_cards_position[1][0], turned_cards_position[1][1]
+                );
+    }
 }
-
 
 // accessors
 
 int CardBoard::getAvailableCards() {
-    return this->cards_num;
+    int cnt = 0;
+    for (int i = 0; i < _cards.size(); i++) {
+        if (_cards[i] != nullptr) cnt ++;
+    }
+    return cnt;
 }
 
 bool CardBoard::processEndGame() {
-    return this->cards_num == 0;
+    return this->getAvailableCards() == 0;
 }
 
 int CardBoard::getNofTurnedCards() {
-    return this->turned_cards_position.size();
+    int cnt = 0;
+    for (int i = 0; i < _cards.size(); i++) {
+        if (_cards[i] != nullptr
+        && !_cards[i]->getIsFront()) cnt ++;
+    }
+    return cnt;
 }
 
-std::vector<std::vector<int>> CardBoard::get_turned_cards_position() {
-    return this->turned_cards_position;
+#ifdef MEMORY_SERVER
+void CardBoard::setup_game(std::string &err) {
+    // remove all cards (if any) and add the change to the "cards" array_diff
+    for (int i = 0; i < _cards.size(); i++) {
+        delete _cards[i];
+    }
+    _cards.clear();
+
+    // add a fresh set of cards
+    int row_num = 3, col_num = 4;
+    for (int i=0; i < row_num; i++) {
+        for (int j = 0; j < col_num; j++) {
+            _cards.push_back(new Card( i*j % 2 ? 0 : 1, false, i, j));
+        }
+    }
+
+//    // shuffle them
+// TODO: shuffle
+//    this->shuffle();
 }
+#endif
+
+void CardBoard::write_into_json(rapidjson::Value &json, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator> &allocator) const {
+    unique_serializable::write_into_json(json, allocator);
+    json.AddMember("cards", vector_utils::serialize_vector(_cards, allocator), allocator);
+}
+
+CardBoard *CardBoard::from_json(const rapidjson::Value &json) {
+    if (json.HasMember("id") && json.HasMember("cards")) {
+        std::vector<Card*> deserialized_cards = std::vector<Card*>();
+        for (auto & serialized_card : json["cards"].GetArray()) {
+            deserialized_cards.push_back(Card::from_json(serialized_card.GetObject()));
+        }
+        return new CardBoard(json["id"].GetString(), deserialized_cards);
+    } else {
+        throw MemoryException("Could not parse CardBoard from json. 'id' or 'cards' were missing.");
+    }
+}
+

@@ -8,18 +8,25 @@
 #include <wx/wx.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include "Card.h"
+#include "../player/Player.h"
+#include "../../serialization/serializable.h"
+#include "../../serialization/serializable_value.h"
+#include "../../../../rapidjson/include/rapidjson/document.h"
 
-class CardBoard {
+class CardBoard : public unique_serializable {
 private:
-    std::vector<std::vector<Card*>> _cards;
-    int row_num;
-    int col_num;
-    int cards_num;
-    std::vector<std::vector<int>> turned_cards_position; // stores positions of flipped cards
+    std::vector<Card*> _cards;
+
+    // deserialization constructor
+    CardBoard(std::string id, std::vector<Card*> & cards);
+
+    // from_diff constructor
+    CardBoard(std::string id);
 
 public:
-    CardBoard(int row_num=3, int col_num=4);
+    CardBoard(std::vector<Card*> & cards);
     ~CardBoard();
 
     void flipCard(int row, int col);
@@ -27,11 +34,20 @@ public:
     void vanishPairs(int r1, int c1, int r2, int c2); // vanish a pair of cards if possible
     bool processEndGame(); // check if the number of cards remaining is 0
     void handleTurnedCards(); // called when the number of turned cards reaches 2
+    // TODO: Shuffle()
 
     //accessors
     int getAvailableCards(); // returns the number of available cards on the cardboard
-    std::vector<std::vector<Card*>> getCards();
+    std::vector<Card*> getCards();
     int getNofTurnedCards();
-    std::vector<std::vector<int>> get_turned_cards_position();
+
+#ifdef MEMORY_CLIENT
+    // state update functions
+    void setup_game(std::string & err); // clears the stack
+#endif
+
+    // serializable interface
+    virtual void write_into_json(rapidjson::Value & json, rapidjson::Document::AllocatorType & allocator) const override;
+    static CardBoard* from_json(const rapidjson::Value& json);
 };
 #endif //MEMORY_GAME_CARDBOARD_H

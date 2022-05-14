@@ -14,21 +14,29 @@ class Card : public unique_serializable {
 private:
     serializable_value<int> * _value;
     serializable_value<bool> * _isFront;
+    serializable_value<int> * _row;
+    serializable_value<int> * _col;
+
+
+    // deserialization constructor
+    Card(std::string id, serializable_value<int>* val,
+         serializable_value<bool> * isFront,
+         serializable_value<int> * _row,
+         serializable_value<int> * _col);
 
     // from_diff constructor
     Card(std::string id);
-    // deserialization constructor
-    Card(std::string id, serializable_value<int>* val, serializable_value<bool> * isFront);
 
 public:
-    Card(int val, bool isFront = false);
+    Card(int val, bool isFront, int row, int col);
     ~Card();
 
     void flip();
 
     // accessors
-    int getValue() const noexcept;
-    bool getIsFront()  const noexcept ;
+    [[nodiscard]] int getValue() const noexcept;
+    [[nodiscard]] bool getIsFront()  const noexcept;
+    [[nodiscard]] std::tuple<int, int> getPosition() const noexcept;
 
     // serializable interface
     void write_into_json(rapidjson::Value & json, rapidjson::Document::AllocatorType & allocator) const override;
