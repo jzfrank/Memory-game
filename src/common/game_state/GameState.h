@@ -45,14 +45,16 @@ private:
             serializable_value<int>* starting_player_idx
             );
 
-
+    // returns the index of 'player' in the '_players' vector
+    int get_player_index(Player *player) const;
 public:
     GameState();
     ~GameState();
 
-    bool flipCard(int row, int col);
 
-    // accessors
+//    bool flipCard(int row, int col);
+
+// accessors
     [[nodiscard]] bool is_full() const;
     [[nodiscard]] bool is_started() const;
     [[nodiscard]] bool is_finished() const;
@@ -70,7 +72,7 @@ public:
     bool remove_player(Player* player, std::string& err);
     bool add_player(Player* player, std::string& err);
     bool start_game(std::string& err);
-    bool flipCard(int row, int col, std::string err);
+    bool flipCard(Player* player, int row, int col, std::string & err);
 
     // end of round functions
     void update_current_player(std::string& err);

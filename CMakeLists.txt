@@ -76,7 +76,7 @@ set(CLIENT_SOURCE_FILES
 # define a variable SERVER_SOURCE_FILES that contains the paths to all source files required to compile the server executable
 set(SERVER_SOURCE_FILES
         src/server/main.cpp
-#        src/server/game_instance.cpp src/server/game_instance.h
+        src/server/game_instance.cpp src/server/game_instance.h
 #        src/server/game_instance_manager.cpp src/server/game_instance_manager.h
         src/server/player_manager.cpp src/server/player_manager.h
         src/server/server_network_manager.cpp src/server/server_network_manager.h

@@ -59,9 +59,9 @@ GameState::~GameState() {
 
 }
 
-bool GameState::flipCard(int row, int col) {
-    return this->_cardBoard->flipCard(row, col);
-}
+//bool GameState::flipCard(int row, int col) {
+//    return this->_cardBoard->flipCard(row, col);
+//}
 
 bool GameState::is_full() const {
     return _players.size() == _max_nof_players;
@@ -91,6 +91,17 @@ std::vector<Player *> &GameState::get_players() {
 int GameState::get_round_number() const {
     return _round_number->get_value();
 }
+
+int GameState::get_player_index(Player *player) const {
+    auto it = std::find(_players.begin(), _players.end(), player);
+    if (it == _players.end()) {
+        return -1;
+    } else {
+        return it - _players.begin();
+    }
+}
+
+// accessors
 
 CardBoard *GameState::getCardBoard() {
     return this->_cardBoard;
@@ -132,6 +143,80 @@ void GameState::wrap_up_round(std::string &err) {
     }
 }
 
+void GameState::update_current_player(std::string &err) {
+    int nof_players = _players.size();
+    _current_player_idx->set_value((_current_player_idx->get_value() + 1) % nof_players);
+}
+
+bool GameState::start_game(std::string &err) {
+    if (_players.size() < _min_nof_players) {
+        err = "You need at least " + std::to_string(_min_nof_players) + " players to start the game.";
+        return false;
+    }
+
+    if (!_is_started->get_value()) {
+        this->setup_round(err);
+        this->_is_started->set_value(true);
+        return true;
+    } else {
+        err = "Could not start game, as the game was already started";
+        return false;
+    }
+}
+
+bool GameState::remove_player(Player *player_ptr, std::string &err) {
+    int idx = get_player_index(player_ptr);
+    if (idx != -1) {
+        if (idx < _current_player_idx->get_value()) {
+            // reduce current_player_idx if the player who left had a lower index
+            _current_player_idx->set_value(_current_player_idx->get_value() - 1);
+        }
+        _players.erase(_players.begin() + idx);
+        return true;
+    } else {
+        err = "Could not leave game, as the requested player was not found in that game.";
+        return false;
+    }
+}
+
+bool GameState::add_player(Player* player_ptr, std::string& err) {
+    if (_is_started->get_value()) {
+        err = "Could not join game, because the requested game is already started.";
+        return false;
+    }
+    if (_is_finished->get_value()) {
+        err = "Could not join game, because the requested game is already finished.";
+        return false;
+    }
+    if (_players.size() >= _max_nof_players) {
+        err = "Could not join game, because the max number of players is already reached.";
+        return false;
+    }
+    if (std::find(_players.begin(), _players.end(), player_ptr) != _players.end()) {
+        err = "Could not join game, because this player is already subscribed to this game.";
+        return false;
+    }
+
+    _players.push_back(player_ptr);
+    return true;
+}
+
+bool GameState::flipCard(Player* player, int row, int col, std::string & err) {
+    if (!is_player_in_game(player)) {
+        err = "Server refused to perform draw_card. Player is not part of the game.";
+        return false;
+    }
+    if (!is_allowed_to_play_now(player)) {
+        err = "It's not this players turn yet";
+        return false;
+    }
+    if (_cardBoard->getAvailableCards() == 0 || _is_finished->get_value()) {
+        err = "Could not flip card, because the requested game is already finished.";
+        return false;
+    }
+
+    return _cardBoard->flipCard(row, col);
+}
 #endif
 
 // Serializable Interface

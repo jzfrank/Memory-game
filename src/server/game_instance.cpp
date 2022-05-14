@@ -78,7 +78,7 @@ bool game_instance::try_add_player(Player *new_player, std::string &err) {
 
 bool game_instance::flip_card(Player *player, int row, int col, std::string & err) {
     modification_lock.lock();
-    if (_game_state->flipCard(row, col, err)) {
+    if (_game_state->flipCard(player, row, col, err)) {
         // send state update to all other players
         full_state_response state_update_msg = full_state_response(this->get_id(), *_game_state);
         server_network_manager::broadcast_message(state_update_msg, _game_state->get_players(), player);
