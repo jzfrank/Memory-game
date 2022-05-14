@@ -33,10 +33,10 @@ public:
     ~Player();
 
 #ifdef MEMORY_SERVER
-    Player(std::string id, std::string name); // for server
+Player(std::string id, std::string name, int score); // for server
 
-    std::string get_game_id();
-    void set_game_id(std::string game_id);
+std::string get_game_id();
+void set_game_id(std::string game_id);
 #endif
     // accessor
     int get_score() const noexcept;

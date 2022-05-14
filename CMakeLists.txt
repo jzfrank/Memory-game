@@ -71,15 +71,15 @@ set(CLIENT_SOURCE_FILES
         src/common/serialization/serializable_value.h
         src/common/serialization/json_utils.h
         src/common/serialization/uuid_generator.h
-        src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h src/client/network/ClientNetworkManager.cpp src/client/network/ClientNetworkManager.h src/client/network/ResponseListenerThread.cpp src/client/network/ResponseListenerThread.h)
+        src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h src/client/network/ClientNetworkManager.cpp src/client/network/ClientNetworkManager.h src/client/network/ResponseListenerThread.cpp src/client/network/ResponseListenerThread.h src/server/main.cpp src/server/server_network_manager.cpp src/server/server_network_manager.h src/server/request_handler.cpp src/server/request_handler.h src/server/player_manager.cpp src/server/player_manager.h)
 
 # define a variable SERVER_SOURCE_FILES that contains the paths to all source files required to compile the server executable
 set(SERVER_SOURCE_FILES
-#        src/server/main.cpp
+        src/server/main.cpp
 #        src/server/game_instance.cpp src/server/game_instance.h
 #        src/server/game_instance_manager.cpp src/server/game_instance_manager.h
-#        src/server/player_manager.cpp src/server/player_manager.h
-#        src/server/server_network_manager.cpp src/server/server_network_manager.h
+        src/server/player_manager.cpp src/server/player_manager.h
+        src/server/server_network_manager.cpp src/server/server_network_manager.h
         # game state
         src/common/game_state/cards/Card.cpp src/common/game_state/cards/Card.h
         src/common/game_state/cards/CardBoard.cpp src/common/game_state/cards/CardBoard.h
@@ -107,18 +107,18 @@ set(SERVER_SOURCE_FILES
 
 
 # set source files for requests-executable
-add_executable(Memory-requests ${CLIENT_SOURCE_FILES})
+add_executable(Memory-client ${CLIENT_SOURCE_FILES})
 # set compile directives for requests-executable
-target_compile_definitions(Memory-requests PRIVATE MEMORY_CLIENT=1 RAPIDJSON_HAS_STDSTRING=1)
+target_compile_definitions(Memory-client PRIVATE MEMORY_CLIENT=1 RAPIDJSON_HAS_STDSTRING=1)
 # link with wxWidgets
-target_link_libraries(Memory-requests ${wxWidgets_LIBRARIES})
+target_link_libraries(Memory-client ${wxWidgets_LIBRARIES})
 # Comment out if you don't want to print network-related messages into the console
-target_compile_definitions(Memory-requests PRIVATE PRINT_NETWORK_MESSAGES=1)
+target_compile_definitions(Memory-client PRIVATE PRINT_NETWORK_MESSAGES=1)
 
 # set source files for server-executable
 add_executable(Memory-server ${SERVER_SOURCE_FILES})
 # set compile directives for server-executable
-target_compile_definitions(Memory-server PRIVATE Memory_SERVER=1 RAPIDJSON_HAS_STDSTRING=1)
+target_compile_definitions(Memory-server PRIVATE MEMORY_SERVER=1 RAPIDJSON_HAS_STDSTRING=1)
 # Comment out if you don't want to print network-related messages into the console
 target_compile_definitions(Memory-server PRIVATE PRINT_NETWORK_MESSAGES=1)
 
@@ -138,7 +138,7 @@ else()
     set(THREADS_PREFER_PTHREAD_FLAG ON)
     find_package(Threads REQUIRED)
 
-    target_link_libraries(Memory-requests ${CMAKE_SOURCE_DIR}/sockpp/cmake-build-debug/libsockpp.so Threads::Threads)
+    target_link_libraries(Memory-client ${CMAKE_SOURCE_DIR}/sockpp/cmake-build-debug/libsockpp.so Threads::Threads)
     target_link_libraries(Memory-server ${CMAKE_SOURCE_DIR}/sockpp/cmake-build-debug/libsockpp.so Threads::Threads)
 endif()
 
@@ -149,6 +149,6 @@ set(CMAKE_CXX_FLAGS "--coverage")
 # set source files for server-library
 add_library(Memory-lib ${SERVER_SOURCE_FILES})
 # set compile directives for server-library
-target_compile_definitions(Memory-lib PRIVATE Memory_SERVER=1 RAPIDJSON_HAS_STDSTRING=1)
+target_compile_definitions(Memory-lib PRIVATE MEMORY_SERVER=1 RAPIDJSON_HAS_STDSTRING=1)
 
 #target_link_libraries(memory_game ${wxWidgets_LIBRARIES})

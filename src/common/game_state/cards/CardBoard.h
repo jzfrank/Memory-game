@@ -41,7 +41,7 @@ public:
     std::vector<Card*> getCards();
     int getNofTurnedCards();
 
-#ifdef MEMORY_CLIENT
+#ifdef MEMORY_SERVER
     // state update functions
     void setup_game(std::string & err); // clears the stack
 #endif
