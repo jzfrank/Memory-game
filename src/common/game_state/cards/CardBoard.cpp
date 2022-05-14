@@ -76,16 +76,19 @@ void CardBoard::vanishPairs(int r1, int c1, int r2, int c2) {
     }
 }
 
-void CardBoard::flipCard(int row, int col) {
+bool CardBoard::flipCard(int row, int col) {
     Card * card = nullptr;
     for (int i=0; i < _cards.size(); i++) {
         if (_cards[i] != nullptr
-        && _cards[i]->getPosition() == std::tuple<int, int>{row, col}) {
+        && _cards[i]->getPosition() == std::tuple<int, int>{row, col}
+        && !_cards[i]->getIsFront()) {
             card = _cards[i];
             card->flip();
-            break;
+            return true;
         }
     }
+    // if row col is not found
+    return false;
 }
 
 void CardBoard::handleTurnedCards() {

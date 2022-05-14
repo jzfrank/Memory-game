@@ -50,7 +50,7 @@ public:
     GameState();
     ~GameState();
 
-    void flipCard(int row, int col);
+    bool flipCard(int row, int col);
 
     // accessors
     [[nodiscard]] bool is_full() const;

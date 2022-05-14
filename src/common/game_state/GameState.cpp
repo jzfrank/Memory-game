@@ -59,8 +59,8 @@ GameState::~GameState() {
 
 }
 
-void GameState::flipCard(int row, int col) {
-    this->_cardBoard->flipCard(row, col);
+bool GameState::flipCard(int row, int col) {
+    return this->_cardBoard->flipCard(row, col);
 }
 
 bool GameState::is_full() const {

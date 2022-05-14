@@ -29,7 +29,7 @@ public:
     CardBoard();
     ~CardBoard();
 
-    void flipCard(int row, int col);
+    bool flipCard(int row, int col);
     bool isVanishable(int r1, int c1, int r2, int c2); // check if two cards are vanishable
     void vanishPairs(int r1, int c1, int r2, int c2); // vanish a pair of cards if possible
     bool processEndGame(); // check if the number of cards remaining is 0
