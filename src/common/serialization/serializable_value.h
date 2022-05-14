@@ -35,7 +35,7 @@ public:
     }
 
 // serializable interface
-    virtual void write_into_json(rapidjson::Value& json, rapidjson::Document::AllocatorType& allocator) const override {
+    void write_into_json(rapidjson::Value& json, rapidjson::Document::AllocatorType& allocator) const override {
         json.AddMember("value", value_type_helpers::get_json_value<decltype(_value)>(_value, allocator), allocator);
     }
 

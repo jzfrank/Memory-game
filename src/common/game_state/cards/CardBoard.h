@@ -26,7 +26,7 @@ private:
     CardBoard(std::string id);
 
 public:
-    CardBoard(std::vector<Card*> & cards);
+    CardBoard();
     ~CardBoard();
 
     void flipCard(int row, int col);

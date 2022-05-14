@@ -27,5 +27,3 @@ void unique_serializable::write_into_json(rapidjson::Value &json,
 
 }
 
-
-#include "unique_serializable.h"

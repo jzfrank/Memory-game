@@ -20,8 +20,8 @@ CardBoard::CardBoard(std::string id, std::vector<Card*> & cards)
 CardBoard::CardBoard(std::string id) : unique_serializable(id)
         {}
 
-CardBoard::CardBoard(std::vector<Card*> & cards)
-                     : unique_serializable(), _cards(cards)
+CardBoard::CardBoard()
+                     : unique_serializable()
                      {}
 
 CardBoard::~CardBoard() {
