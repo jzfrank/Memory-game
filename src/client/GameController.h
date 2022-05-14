@@ -19,7 +19,12 @@ public:
 
     static void connectToServer();
     static void updateGameState(GameState* newGameState);
+    static void startGame();
     static void flipCard(int row, int col);
+
+
+    static void showError(const std::string & title, const std::string & message);
+    static void showStatus(const std::string & message);
 
 private:
     static GameWindow* _gameWindow;

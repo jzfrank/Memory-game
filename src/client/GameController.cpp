@@ -72,3 +72,11 @@ void GameController::flipCard(int row, int col) {
     }
     GameController::updateGameState(GameController::_currentGameState);
 }
+
+void GameController::showError(const std::string &title, const std::string &message) {
+    wxMessageBox(message, title, wxICON_ERROR);
+}
+
+void GameController::showStatus(const std::string &message) {
+    GameController::_gameWindow->setStatus(message);
+}
