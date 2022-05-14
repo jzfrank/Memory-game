@@ -9,6 +9,9 @@
 #include "../uiElements/ImagePanel.h"
 #include "../../common/game_state/GameState.h"
 
+
+// TODO: set a card value to assets name dictionary
+
 class MainGamePanel : public wxPanel {
 public:
     MainGamePanel(wxWindow* parent);

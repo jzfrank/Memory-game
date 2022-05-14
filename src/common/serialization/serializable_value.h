@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <string>
 
 #include "unique_serializable.h"
 #include "value_type_helpers.h"

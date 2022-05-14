@@ -6,20 +6,32 @@
 #define MEMORY_GAME_CARD_H
 
 #include <string>
+#include "../../serialization/unique_serializable.h"
+#include "../../serialization/serializable_value.h"
+#include "../../../../rapidjson/include/rapidjson/document.h"
 
-class Card :{
+class Card : public unique_serializable {
 private:
-    std::string value;
-    bool isFront;
+    serializable_value<int> * _value;
+    serializable_value<bool> * _isFront;
+
+    // from_diff constructor
+    Card(std::string id);
+    // deserialization constructor
+    Card(std::string id, serializable_value<int>* val, serializable_value<bool> * isFront);
+
 public:
-    Card(std::string val);
+    Card(int val, bool isFront = false);
     ~Card();
 
     void flip();
 
     // accessors
-    std::string getValue() const noexcept;
-    bool getIsFront();
+    int getValue() const noexcept;
+    bool getIsFront()  const noexcept ;
 
+    // serializable interface
+    void write_into_json(rapidjson::Value & json, rapidjson::Document::AllocatorType & allocator) const override;
+    static Card* from_json(const rapidjson::Value & json);
 };
 #endif //MEMORY_GAME_CARD_H

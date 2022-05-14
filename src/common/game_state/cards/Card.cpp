@@ -4,24 +4,52 @@
 
 #include "Card.h"
 
-Card::Card(std::string val) {
-    this->value = val;
-    // by initialization cards are showing back cover
-    this->isFront = false;
+#include "../../exceptions/MemoryException.h"
+
+Card::Card(std::string id) : unique_serializable(id) { }
+
+Card::Card(std::string id, serializable_value<int> *val, serializable_value<bool> *isFront)
+        : unique_serializable(id), _value(val), _isFront(isFront)
+{ }
+
+Card::Card(int val, bool isFront) :
+    unique_serializable(),
+    _value(new serializable_value<int> (val)),
+    _isFront(new serializable_value<bool> (isFront))
+{ }
+
+Card::~Card() { }
+
+
+int Card::getValue() const noexcept {
+    return _value->get_value();
 }
 
-
-std::string Card::getValue() const noexcept {
-    return this->value;
+bool Card::getIsFront() const noexcept {
+    return _isFront->get_value();
 }
 
 void Card::flip() {
-    this->isFront = ! this->isFront;
+    _isFront->set_value(! _isFront->get_value());
 }
 
-bool Card::getIsFront() {
-    return this->isFront;
+Card *Card::from_json(const rapidjson::Value &json) {
+    if (json.HasMember("id") && json.HasMember("value") && json.HasMember("isFront")) {
+        return new Card(json["id"].GetString(),
+                        serializable_value<int>::from_json(json["value"].GetObject()),
+                        serializable_value<bool>::from_json(json["isFront"].GetObject()));
+    }
 }
 
 
-Card::~Card() { }
+void Card::write_into_json(rapidjson::Value &json, rapidjson::Document::AllocatorType& allocator) const  {
+    unique_serializable::write_into_json(json, allocator);
+
+    rapidjson::Value value_val(rapidjson::kObjectType);
+    _value->write_into_json(value_val, allocator);
+    json.AddMember("value", value_val, allocator);
+
+    rapidjson::Value isFront_val(rapidjson::kObjectType);
+    _isFront->write_into_json(value_val, allocator);
+    json.AddMember("isFront", value_val, allocator);
+}
