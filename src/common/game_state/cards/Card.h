@@ -7,7 +7,7 @@
 
 #include <string>
 
-class Card {
+class Card :{
 private:
     std::string value;
     bool isFront;
