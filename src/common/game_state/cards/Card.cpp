@@ -50,6 +50,6 @@ void Card::write_into_json(rapidjson::Value &json, rapidjson::Document::Allocato
     json.AddMember("value", value_val, allocator);
 
     rapidjson::Value isFront_val(rapidjson::kObjectType);
-    _isFront->write_into_json(value_val, allocator);
-    json.AddMember("isFront", value_val, allocator);
+    _isFront->write_into_json(isFront_val, allocator);
+    json.AddMember("isFront", isFront_val, allocator);
 }
