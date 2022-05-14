@@ -38,6 +38,8 @@ Card *Card::from_json(const rapidjson::Value &json) {
         return new Card(json["id"].GetString(),
                         serializable_value<int>::from_json(json["value"].GetObject()),
                         serializable_value<bool>::from_json(json["isFront"].GetObject()));
+    } else {
+        throw MemoryException("Could not parse json of card. Was missing 'id' or 'val' or 'isFront'. ");
     }
 }
 

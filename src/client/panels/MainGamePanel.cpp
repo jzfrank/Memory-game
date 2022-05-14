@@ -7,8 +7,7 @@
 #include "../GameController.h"
 
 MainGamePanel::MainGamePanel(wxWindow *parent) : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(960, 680)) {
-//    wxColor white = wxColor(255, 255, 255);
-//    this->SetBackgroundColour(white);
+
 }
 
 void MainGamePanel::buildGameState(GameState *gameState) {
@@ -43,7 +42,7 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
                 cardImage = "assets/card-back.png";
             }
             else {
-                cardImage = "assets/card-" + cards[row][col]->getValue() + ".png";
+                cardImage = "assets/" + val_to_filename[cards[row][col]->getValue()];
             }
 //            std::cout << cardImage << std::endl;
             ImagePanel* card = new ImagePanel(this, cardImage, wxBITMAP_TYPE_ANY,

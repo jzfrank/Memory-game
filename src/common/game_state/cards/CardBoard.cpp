@@ -11,13 +11,13 @@ CardBoard::CardBoard(int row_num, int col_num) {
     this->row_num = row_num;
     this->col_num = col_num;
     this->cards_num = this->row_num * this->col_num;
-    std::vector<std::string> cards_values = std::vector<std::string>(this->cards_num);
+    std::vector<int> cards_values = std::vector<std::string>(this->cards_num);
     for (int i=0; i < this->cards_num; i++) {
         if (i % 2 == 0) {
-            cards_values[i] = "K";
+            cards_values[i] = 1;
         }
         else {
-            cards_values[i] = "Q";
+            cards_values[i] = 2;
         }
     }
     // shuffle
