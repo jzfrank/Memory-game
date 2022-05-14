@@ -65,10 +65,16 @@ public:
     Player * get_current_player() const;
 
 #ifdef MEMORY_SERVER
-    // server-side state update functions
-    // TODO: implement ...
+// server-side state update functions
+    void setup_round(std::string& err);   // server side initialization
+    bool remove_player(Player* player, std::string& err);
+    bool add_player(Player* player, std::string& err);
+    bool start_game(std::string& err);
+    bool flipCard(int row, int col, std::string err);
 
     // end of round functions
+    void update_current_player(std::string& err);
+    void wrap_up_round(std::string& err);
 #endif
 // serializable interface
     static GameState * from_json(const rapidjson::Value& json);

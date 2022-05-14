@@ -57,6 +57,9 @@ std::string Player::get_player_name() const noexcept {
 #ifdef MEMORY_SERVER
 // state update functions
     // TODO: implement this similar to LAMA's player
+
+void Player::wrap_up_round(std::string &err) {}
+void Player::setup_round(std::string &err) {}
 #endif
 
 void Player::write_into_json(rapidjson::Value &json, rapidjson::Document::AllocatorType &allocator) const {

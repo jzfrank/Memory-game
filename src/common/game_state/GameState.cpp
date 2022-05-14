@@ -75,7 +75,7 @@ bool GameState::is_finished() const {
     return _is_finished;
 }
 
-bool GameState::is_player_in_game(Player *player) const {\
+bool GameState::is_player_in_game(Player *player) const {
     return (std::find(_players.begin(), _players.end(), player)
             < _players.end());
 }
@@ -104,7 +104,34 @@ Player *GameState::get_current_player() const {
 }
 
 #ifdef MEMORY_SERVER
-// TODO: define related functions
+
+void GameState::setup_round(std::string &err) {
+    // update round number
+    _round_number->set_value(_round_number->get_value() + 1);
+
+    // setup cardBoard
+    _cardBoard->setup_game(err);
+    // setup players
+    for (int i=0; i < _players.size(); i++) {
+        _players[i]->setup_round(err);
+    }
+}
+
+void GameState::wrap_up_round(std::string &err) {
+    // check if game is over
+    bool is_game_over = false;
+    if (_cardBoard->getAvailableCards() == 0) is_game_over = true;
+
+    if (is_game_over) {
+        this->_is_finished->set_value(true);
+    } else {
+        // decide which player starts in the next round
+        _starting_player_idx->set_value((_starting_player_idx->get_value() + 1) % _players.size());
+        // start next round
+        setup_round(err);
+    }
+}
+
 #endif
 
 // Serializable Interface
