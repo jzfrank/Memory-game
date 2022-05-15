@@ -33,7 +33,7 @@ ConnectionPanel::ConnectionPanel(wxWindow *parent)
             default_server_host, // default value (from "default.conf")
             fieldWidth);
     verticalLayout->Add(this->_serverAddressField, 0,wxALIGN_CENTER | wxALL, 10);
-    
+
     this->_serverPortField = new InputField(
             this,
             "Server Port:",
