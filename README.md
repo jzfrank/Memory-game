@@ -26,8 +26,8 @@ Execute the following commands in a console:
 
 ## 2. Run the Game
 1. Open a console in the project folder, navigate into "cmake-build-debug" `cd cmake-build-debug`
-2. Run server `./Lama-server`
-3. In new consoles run as many clients as you want players `./Lama-client`
+2. Run server `./Memory-server`
+3. In new consoles run as many clients as you want players `./Memory-client`
 
 
 Then you should be good to go: open this project in clion, build and run. 
