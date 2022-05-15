@@ -68,11 +68,11 @@ bool GameState::is_full() const {
 }
 
 bool GameState::is_started() const {
-    return _is_started;
+    return _is_started->get_value();
 }
 
 bool GameState::is_finished() const {
-    return _is_finished;
+    return _is_finished->get_value();
 }
 
 bool GameState::is_player_in_game(Player *player) const {
@@ -154,6 +154,7 @@ bool GameState::start_game(std::string &err) {
         return false;
     }
 
+    std::cout << "in GameState.cpp start_game, _is_started = " << _is_started <<std::endl;
     if (!_is_started->get_value()) {
         this->setup_round(err);
         this->_is_started->set_value(true);
@@ -215,7 +216,11 @@ bool GameState::flipCard(Player* player, int row, int col, std::string & err) {
         return false;
     }
 
-    return _cardBoard->flipCard(row, col);
+    bool flippable = _cardBoard->flipCard(row, col);
+    // handle vanishing cards
+    // TODO: implement timeout / message box
+    _cardBoard->handleTurnedCards();
+    return flippable;
 }
 #endif
 

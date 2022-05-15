@@ -16,11 +16,11 @@
 class MainGamePanel : public wxPanel {
 public:
     MainGamePanel(wxWindow* parent);
-    void buildGameState(GameState * gameState);
+    void buildGameState(GameState * gameState, Player * me);
 
 private:
-
     void buildCardMatrix(GameState * gameState);
+    void buildThisPlayer(GameState * gameState, Player * me);
 
     std::unordered_map<int, std::string> val_to_filename = {
             {1, "card-K.png"},

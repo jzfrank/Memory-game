@@ -100,6 +100,7 @@ void CardBoard::handleTurnedCards() {
         }
     }
     if (turned_cards_position.size() == 2) {
+        // TODO: implement timeout
         this->vanishPairs(
                 std::get<0>(turned_cards_position[0]), std::get<1>(turned_cards_position[0]),
                 std::get<0>(turned_cards_position[1]), std::get<1>(turned_cards_position[1])

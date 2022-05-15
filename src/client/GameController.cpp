@@ -102,7 +102,7 @@ void GameController::updateGameState(GameState *newGameState) {
 
     GameController::_gameWindow->showPanel(GameController::_mainGamePanel);
 
-    GameController::_mainGamePanel->buildGameState(_currentGameState);
+    GameController::_mainGamePanel->buildGameState(GameController::_currentGameState, GameController::_me);
 }
 
 void GameController::startGame() {
@@ -142,6 +142,10 @@ wxEvtHandler *GameController::getMainThreadEventHandler() {
 
 void GameController::showError(const std::string &title, const std::string &message) {
     wxMessageBox(message, title, wxICON_ERROR);
+}
+
+void showMessage(const std::string & title, const std::string & message) {
+    wxMessageBox(message, title, wxOK);
 }
 
 void GameController::showStatus(const std::string &message) {
