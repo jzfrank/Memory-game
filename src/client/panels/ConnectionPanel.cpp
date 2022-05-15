@@ -3,6 +3,8 @@
 //
 
 #include "ConnectionPanel.h"
+#include "../uiElements//ImagePanel.h"
+#include "../../common/network/default.conf"
 #include "../GameController.h"
 
 ConnectionPanel::ConnectionPanel(wxWindow *parent)
@@ -24,21 +26,19 @@ ConnectionPanel::ConnectionPanel(wxWindow *parent)
                         wxALIGN_CENTER | wxALL, 20);
 
     int labelWidth = 120, fieldWidth = 240;
-    wxString default_server_host = "5035";
     this->_serverAddressField = new InputField(
             this,
             "Server Address:",
             labelWidth,
-            default_server_host,
+            default_server_host, // default value (from "default.conf")
             fieldWidth);
     verticalLayout->Add(this->_serverAddressField, 0,wxALIGN_CENTER | wxALL, 10);
-
-    wxString default_server_port = "123";
+    
     this->_serverPortField = new InputField(
             this,
             "Server Port:",
             labelWidth,
-            default_server_port,
+            wxString::Format("%i", default_port), // default value (from "default.conf")
             fieldWidth
             );
     verticalLayout->Add(this->_serverPortField, 0, wxALIGN_CENTER | wxALL, 10);
