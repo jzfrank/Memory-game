@@ -3,7 +3,7 @@
 //
 
 #include "ImagePanel.h"
-#include <wx/filefn.h>
+
 
 ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format,
                        wxPoint position, wxSize size, double rotation)

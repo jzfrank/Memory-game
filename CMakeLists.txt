@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(sockpp/include)
 
 set(wxWidgets_ROOT_DIR </usr/include/wx-3.0>)
-set(wxWidgets_CONFIGURATION mswu)
+#set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base net REQUIRED)
 include(${wxWidgets_USE_FILE})
 
@@ -105,9 +105,9 @@ set(SERVER_SOURCE_FILES
         )
 
 
-# set source files for requests-executable
+# set source files for client-executable
 add_executable(Memory-client ${CLIENT_SOURCE_FILES})
-# set compile directives for requests-executable
+# set compile directives for client-executable
 target_compile_definitions(Memory-client PRIVATE MEMORY_CLIENT=1 RAPIDJSON_HAS_STDSTRING=1)
 # link with wxWidgets
 target_link_libraries(Memory-client ${wxWidgets_LIBRARIES})
@@ -126,11 +126,11 @@ target_compile_definitions(Memory-server PRIVATE PRINT_NETWORK_MESSAGES=1)
 if(WIN32)
     message("Detected Win32")
 
-    target_link_libraries(Memory-requests ${CMAKE_SOURCE_DIR}/sockpp/cmake-build-debug/sockpp-static.lib)
+    target_link_libraries(Memory-client ${CMAKE_SOURCE_DIR}/sockpp/cmake-build-debug/sockpp-static.lib)
     target_link_libraries(Memory-server ${CMAKE_SOURCE_DIR}/sockpp/cmake-build-debug/sockpp-static.lib)
 
     # Necessary to get sockets working under Windows (with MingW)
-    target_link_libraries(Memory-requests wsock32 ws2_32)
+    target_link_libraries(Memory-client wsock32 ws2_32)
 else()
     message("Not Win32, so probably a Linux") # We assume it's Linux in this case
 

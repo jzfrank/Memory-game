@@ -5,7 +5,6 @@
 #ifndef MEMORY_GAME_CARDBOARD_H
 #define MEMORY_GAME_CARDBOARD_H
 
-#include <wx/wx.h>
 #include <string>
 #include <vector>
 #include <unordered_map>
