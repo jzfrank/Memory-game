@@ -54,25 +54,50 @@ bool CardBoard::isVanishable(int r1, int c1, int r2, int c2) {
 }
 
 void CardBoard::vanishPairs(int r1, int c1, int r2, int c2) {
+    std::cout << "cardboard vanishPairs is called with " <<
+    r1 << ", " << c1 << " and " << r2 << ", " << c2 << std::endl;
     if (! this->isVanishable(r1, c1, r2, c2)) {
+        std::cout << "they are not vanishable" << std::endl;
         return;
     }
     else {
-        Card * old_card = nullptr;
-        for (int i=0; i<_cards.size(); i++) {
-            if (_cards[i] != nullptr
-                && _cards[i]->getPosition() == std::tuple<int, int>{r1, c1}) {
-                old_card = _cards[i];
-                _cards[i] = nullptr;
-                delete old_card;
+        std::cout << "they are vanishable" << std::endl;
+
+        for (auto it = _cards.begin(); it != _cards.end(); ) {
+            if ((*it)->getPosition() == std::tuple<int, int>{r1, c1}) {
+                delete *it;
+                it = _cards.erase(it);
             }
-            else if (_cards[i] != nullptr
-                     && _cards[i]->getPosition() == std::tuple<int, int>{r2, c2}) {
-                old_card = _cards[i];
-                _cards[i] = nullptr;
-                delete old_card;
+            else {
+                ++it;
             }
         }
+
+        for (auto it = _cards.begin(); it != _cards.end(); ) {
+            if ((*it)->getPosition() == std::tuple<int, int>{r2, c2}) {
+                delete *it;
+                it = _cards.erase(it);
+            }
+            else {
+                ++it;
+            }
+        }
+
+//        for (int i=0; i<_cards.size(); i++) {
+//            if (_cards[i] != nullptr
+//                && _cards[i]->getPosition() == std::tuple<int, int>{r1, c1}) {
+//                Card * old_card = _cards[i];
+//                _cards[i] = nullptr;
+//                delete old_card;
+//            }
+//        }
+//
+//        for (int i=0; i < _cards.size(); i++) {
+//            if (_cards[i] != nullptr
+//                && _cards[i]->getPosition() == std::tuple<int, int>{r2, c2}) {
+//
+//            }
+//        }
     }
 }
 
@@ -95,7 +120,7 @@ void CardBoard::handleTurnedCards() {
     std::vector<std::tuple<int, int>> turned_cards_position;
     for (int i=0; i < _cards.size(); i++) {
         if (_cards[i] != nullptr
-        && !_cards[i]->getIsFront()) {
+        && _cards[i]->getIsFront()) {
             turned_cards_position.push_back(_cards[i]->getPosition());
         }
     }
@@ -143,7 +168,7 @@ void CardBoard::setup_game(std::string &err) {
     int row_num = 3, col_num = 4;
     for (int i=0; i < row_num; i++) {
         for (int j = 0; j < col_num; j++) {
-            _cards.push_back(new Card( i*j % 2 ? 0 : 1, false, i, j));
+            _cards.push_back(new Card( i*j % 2 ? 1 : 2, false, i, j));
         }
     }
 

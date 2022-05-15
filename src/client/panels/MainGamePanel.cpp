@@ -58,7 +58,9 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
         } else {
             cardImage = "assets/" + val_to_filename[cards[i]->getValue()];
         }
-        int row = i / 4, col = i % 4;
+        std::cout << "cardImage" << cardImage << std::endl;
+        std::tuple<int,int> pos = cards[i]->getPosition();
+        int row = std::get<0>(pos), col = std::get<1>(pos);
         ImagePanel* card = new ImagePanel(this, cardImage, wxBITMAP_TYPE_ANY,
                                           cardStartPosition
                                           + wxPoint(col * cardSize.x, row * cardSize.y),
