@@ -81,24 +81,48 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
     }
     // otherwise, render a funny picture
     else {
-        std::string funny_image = "assets/memory-logo.png";
+        std::string funny_image = "assets/card-back.png";
         new ImagePanel(this, funny_image, wxBITMAP_TYPE_ANY,
-                       MainGamePanel::tableCenter,
+                       (MainGamePanel::tableCenter -
+                       wxPoint(MainGamePanel::backGroundSize.x / 2,
+                                        MainGamePanel::backGroundSize.y / 2)),
                        MainGamePanel::backGroundSize);
     }
 
 }
 
 void MainGamePanel::buildThisPlayer(GameState *gameState, Player *me) {
+
+    wxPoint thisPlayerPosition = MainGamePanel::tableCenter + MainGamePanel::thisPlayerPositionOffset;
+//    wxStaticText* playerName =
+    this->buildStaticText(
+        me->get_player_name(),
+        thisPlayerPosition,
+        wxSize(200, 18),
+        wxALIGN_CENTER,
+        true
+    );
+
     if (!gameState->is_started()) {
         // show button that allows out player to start the game
-        wxButton * startGameButton = new wxButton(this, wxID_ANY, "Start Game!", wxDefaultPosition, wxSize(160, 64));
+        wxButton * startGameButton = new wxButton(
+                this, wxID_ANY, "Start Game!",
+                thisPlayerPosition + wxPoint(50, 0),
+                wxSize(160, 64));
         startGameButton->Bind(wxEVT_BUTTON, [](wxCommandEvent & event) {
             GameController::startGame();
         });
 
     } else {
         // TODO: to be implemented
+        // build score
+        this->buildStaticText(
+                "score: " + std::to_string(me->get_score()),
+                thisPlayerPosition + wxPoint(0, 30),
+                wxSize(200, 18),
+                wxALIGN_CENTER,
+                true
+        );
         std::cout << "build this player part 2: not yet implemented" << std::endl;
     }
 }
@@ -107,13 +131,13 @@ void MainGamePanel::buildTurnIndicator(GameState *gameState, Player *me) {
     if (gameState->is_started() && gameState->get_current_player() != nullptr) {
         // TODO: what if the name are repeated? Could be a bug to handle
         std::string turnIndicatorText;
-        std::cout << "current_player: " << gameState->get_current_player()->get_player_name() << " "
-                << gameState->get_current_player()->get_score() << " "
-                << gameState->get_current_player()->get_id() << std::endl;
-        std::cout << "me: " << me->get_player_name() << " "
-                << me->get_score() << " "
-                << me->get_id() << std::endl;
-        std::cout << "are they equal? " << (gameState->get_current_player() == me) << std::endl;
+//        std::cout << "current_player: " << gameState->get_current_player()->get_player_name() << " "
+//                << gameState->get_current_player()->get_score() << " "
+//                << gameState->get_current_player()->get_id() << std::endl;
+//        std::cout << "me: " << me->get_player_name() << " "
+//                << me->get_score() << " "
+//                << me->get_id() << std::endl;
+//        std::cout << "are they equal? " << (gameState->get_current_player() == me) << std::endl;
         if (gameState->get_current_player() == me) {
             turnIndicatorText = "It's your turn!";
         } else{

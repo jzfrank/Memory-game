@@ -45,6 +45,9 @@ public:
     int get_score() const noexcept;
     std::string get_player_name() const noexcept;
 
+    // setter
+    void set_score(int score);
+
 #ifdef MEMORY_SERVER
     // state update functions
     void wrap_up_round(std::string & err);

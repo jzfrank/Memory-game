@@ -32,6 +32,7 @@ private:
     };
 
     wxPoint const turnIndicatorOffset = wxPoint(-400, -200);
+    wxPoint const thisPlayerPositionOffset = wxPoint(-100, 300);
     wxPoint const tableCenter = wxPoint(480, 300);
 
     wxSize const panelSize = wxSize(960, 680);

@@ -52,6 +52,10 @@ std::string Player::get_player_name() const noexcept {
     return _player_name->get_value();
 }
 
+
+void Player::set_score(int score) {
+    _score->set_value(score);
+}
 #ifdef MEMORY_SERVER
 // state update functions
     // TODO: implement this similar to LAMA's player
