@@ -226,10 +226,17 @@ bool GameState::flipCard(Player* player, int row, int col, std::string & err) {
         if (numOfCardsBeforeHandle == 2 + numOfCardsAfterHandle) {
             player->set_score(player->get_score() + 2);
         }
-        // if the player has flipped 2 cards we let next player to play
-        if (_cardBoard->getNofTurnedCards() % 2 == 0) {
+        // TODO: I think it might be an interesting feature:
+        //  if the current player flips correct, he/she can continue!
+        else if (_cardBoard->getNofTurnedCards() % 2 == 0
+                && numOfCardsBeforeHandle == numOfCardsAfterHandle) {
             this->update_current_player(err);
-        }
+        };
+
+//        // if the player has flipped 2 cards we let next player to play
+//        if (_cardBoard->getNofTurnedCards() % 2 == 0) {
+//            this->update_current_player(err);
+//        }
         return true;
     }
     else {
