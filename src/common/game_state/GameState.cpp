@@ -108,7 +108,7 @@ CardBoard *GameState::getCardBoard() {
 }
 
 Player *GameState::get_current_player() const {
-    if (_players.size() == 0) {
+    if (_current_player_idx == nullptr || _players.size() == 0) {
         return nullptr;
     }
     return _players[_current_player_idx->get_value()];

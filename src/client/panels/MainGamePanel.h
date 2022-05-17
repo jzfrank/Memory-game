@@ -31,7 +31,7 @@ private:
             {2, "card-Q.png"}
     };
 
-    wxPoint const turnIndicatorOffset = wxPoint(-500, -300);
+    wxPoint const turnIndicatorOffset = wxPoint(-400, -200);
     wxPoint const tableCenter = wxPoint(480, 300);
 
     wxSize const panelSize = wxSize(960, 680);

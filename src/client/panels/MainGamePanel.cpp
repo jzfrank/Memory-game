@@ -16,7 +16,7 @@ void MainGamePanel::buildGameState(GameState *gameState, Player * me) {
     this->DestroyChildren();
 
     std::vector<Player *> players = gameState->get_players();
-    int numberOfPlayers = players.size();
+//    int numberOfPlayers = players.size();
 
     // find our own player object
     int myPosition = -1;
@@ -29,6 +29,8 @@ void MainGamePanel::buildGameState(GameState *gameState, Player * me) {
     if (myPosition == -1) {
         GameController::showError("Game State error", "could not find this player among players of server game");
         return;
+    } else {
+        me = players[myPosition];
     }
 
 
@@ -105,11 +107,14 @@ void MainGamePanel::buildTurnIndicator(GameState *gameState, Player *me) {
     if (gameState->is_started() && gameState->get_current_player() != nullptr) {
         // TODO: what if the name are repeated? Could be a bug to handle
         std::string turnIndicatorText;
-        std::cout << "current_player" << gameState->get_current_player()->get_id() << std::endl;
-        std::cout << "me: " << me->get_id() << std::endl;
+        std::cout << "current_player: " << gameState->get_current_player()->get_player_name() << " "
+                << gameState->get_current_player()->get_score() << " "
+                << gameState->get_current_player()->get_id() << std::endl;
+        std::cout << "me: " << me->get_player_name() << " "
+                << me->get_score() << " "
+                << me->get_id() << std::endl;
         std::cout << "are they equal? " << (gameState->get_current_player() == me) << std::endl;
         if (gameState->get_current_player() == me) {
-
             turnIndicatorText = "It's your turn!";
         } else{
             turnIndicatorText = "...Waiting " + gameState->get_current_player()->get_player_name() + " to turn cards...";
