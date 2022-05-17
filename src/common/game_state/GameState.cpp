@@ -217,10 +217,20 @@ bool GameState::flipCard(Player* player, int row, int col, std::string & err) {
     }
 
     bool flippable = _cardBoard->flipCard(row, col);
-    // handle vanishing cards
-    // TODO: implement timeout / message box
-    _cardBoard->handleTurnedCards();
-    return flippable;
+    if (flippable) {
+        // handle vanishing cards
+        // TODO: implement timeout / message box
+        _cardBoard->handleTurnedCards();
+        // if the player has flipped 2 cards we let next player to play
+        if (_cardBoard->getNofTurnedCards() % 2 == 0) {
+            this->update_current_player(err);
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+
 }
 #endif
 

@@ -20,7 +20,7 @@ Execute the following commands in a console:
 2. Click `File > Open...` and there select the **/sockpp** folder of this project
 3. Click `Build > Build all in 'Debug'`
 4. Wait until sockpp is compiled (from now on you never have to touch sockpp again ;))
-5. Click `File > Open...` select the **/cse-lama-example-project** folder
+5. Click `File > Open...` select the **/memory-game** folder
 6. Click `Build > Build all in 'Debug'`
 7. Wait until Lama-server, Lama-client and Lama-tests are compiled
 

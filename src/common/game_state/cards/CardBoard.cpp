@@ -118,18 +118,28 @@ bool CardBoard::flipCard(int row, int col) {
 
 void CardBoard::handleTurnedCards() {
     std::vector<std::tuple<int, int>> turned_cards_position;
+    std::vector<int> turned_cards_index;
     for (int i=0; i < _cards.size(); i++) {
         if (_cards[i] != nullptr
         && _cards[i]->getIsFront()) {
+            turned_cards_index.push_back(i);
             turned_cards_position.push_back(_cards[i]->getPosition());
         }
     }
+    assert(turned_cards_position.size() <= 2);
     if (turned_cards_position.size() == 2) {
         // TODO: implement timeout
         this->vanishPairs(
                 std::get<0>(turned_cards_position[0]), std::get<1>(turned_cards_position[0]),
                 std::get<0>(turned_cards_position[1]), std::get<1>(turned_cards_position[1])
                 );
+        // no matter the pair vanish or not, we make every card turn to its back cover
+        for (int i=0; i < _cards.size(); i++) {
+            if (_cards[i] != nullptr
+            && _cards[i]->getIsFront()) {
+                _cards[i]->flip();
+            }
+        }
     }
 }
 
@@ -168,7 +178,7 @@ void CardBoard::setup_game(std::string &err) {
     int row_num = 3, col_num = 4;
     for (int i=0; i < row_num; i++) {
         for (int j = 0; j < col_num; j++) {
-            _cards.push_back(new Card( i*j % 2 ? 1 : 2, false, i, j));
+            _cards.push_back(new Card( (i * col_num + j) % 2 == 0 ? 1 : 2, false, i, j));
         }
     }
 
