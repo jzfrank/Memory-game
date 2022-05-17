@@ -34,6 +34,9 @@ void MainGamePanel::buildGameState(GameState *gameState, Player * me) {
 
     this->buildCardMatrix(gameState);
 
+    // indicator whose turn to play
+    this->buildTurnIndicator(gameState, me);
+
     // show our own player (or start game button in the beginning)
     this->buildThisPlayer(gameState, me);
 
@@ -49,56 +52,38 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
                                 + wxPoint(-cardSize.x * 2, -cardSize.y * 1);
 
     std::cout << "number of cards: " << cards.size() << std::endl;
-    for (int i=0; i < cards.size(); i++) {
-        std::string cardImage;
-        if (cards[i] == nullptr) {
-            cardImage = "assets/memory-logo.png";
-        } else if (! cards[i]->getIsFront()) {
-            cardImage = "assets/card-back.png";
-        } else {
-            cardImage = "assets/" + val_to_filename[cards[i]->getValue()];
+    // if the cards number is more than 0, render the cardboard
+    if (cards.size() > 0) {
+        for (int i=0; i < cards.size(); i++) {
+            std::string cardImage;
+            if (cards[i] == nullptr) {
+                cardImage = "assets/memory-logo.png";
+            } else if (! cards[i]->getIsFront()) {
+                cardImage = "assets/card-back.png";
+            } else {
+                cardImage = "assets/" + val_to_filename[cards[i]->getValue()];
+            }
+            std::cout << "cardImage" << cardImage << std::endl;
+            std::tuple<int,int> pos = cards[i]->getPosition();
+            int row = std::get<0>(pos), col = std::get<1>(pos);
+            ImagePanel* card = new ImagePanel(this, cardImage, wxBITMAP_TYPE_ANY,
+                                              cardStartPosition
+                                              + wxPoint(col * cardSize.x, row * cardSize.y),
+                                              cardSize);
+            card->SetToolTip("card: click to flip");
+            card->SetCursor(wxCursor(wxCURSOR_HAND));
+            card->Bind(wxEVT_LEFT_UP, [row, col] (wxMouseEvent & event) {
+                GameController::flipCard(row, col);
+            });
         }
-        std::cout << "cardImage" << cardImage << std::endl;
-        std::tuple<int,int> pos = cards[i]->getPosition();
-        int row = std::get<0>(pos), col = std::get<1>(pos);
-        ImagePanel* card = new ImagePanel(this, cardImage, wxBITMAP_TYPE_ANY,
-                                          cardStartPosition
-                                          + wxPoint(col * cardSize.x, row * cardSize.y),
-                                          cardSize);
-        card->SetToolTip("card: click to flip");
-        card->SetCursor(wxCursor(wxCURSOR_HAND));
-        card->Bind(wxEVT_LEFT_UP, [row, col, this] (wxMouseEvent & event) {
-            GameController::flipCard(row, col);
-        });
     }
-
-//    for (int row=0; row < cards.size(); row++){
-////        wxBoxSizer* horizontalLayout = new wxBoxSizer(wxHORIZONTAL);
-//
-//        std::string cardImage;
-//        for (int col=0; col < cards[row].size(); col++) {
-//            if (cards[row][col] == nullptr) {
-//                cardImage = "assets/memory-logo.png";
-//            }
-//            else if (! cards[row][col]->getIsFront()) {
-//                cardImage = "assets/card-back.png";
-//            }
-//            else {
-//                cardImage = "assets/" + val_to_filename[cards[row][col]->getValue()];
-//            }
-////            std::cout << cardImage << std::endl;
-//            ImagePanel* card = new ImagePanel(this, cardImage, wxBITMAP_TYPE_ANY,
-//                                              cardStartPosition + wxPoint(col * cardSize.x, row * cardSize.y),
-//                                              cardSize);
-//            card->SetToolTip("card: click to flip");
-//            card->SetCursor(wxCursor(wxCURSOR_HAND));
-//            card->Bind(wxEVT_LEFT_UP, [row, col, this] (wxMouseEvent & event) {
-//                GameController::flipCard(row, col);
-//            });
-////            horizontalLayout->Add(card, 0, wxALIGN_CENTER | wxALL, 20);
-//        }
-////        verticalLayout->Add(horizontalLayout);
-//    }
+    // otherwise, render a funny picture
+    else {
+        std::string funny_image = "assets/memory-logo.png";
+        new ImagePanel(this, funny_image, wxBITMAP_TYPE_ANY,
+                       MainGamePanel::tableCenter,
+                       MainGamePanel::backGroundSize);
+    }
 
 }
 
@@ -114,4 +99,41 @@ void MainGamePanel::buildThisPlayer(GameState *gameState, Player *me) {
         // TODO: to be implemented
         std::cout << "build this player part 2: not yet implemented" << std::endl;
     }
+}
+
+void MainGamePanel::buildTurnIndicator(GameState *gameState, Player *me) {
+    if (gameState->is_started() && gameState->get_current_player() != nullptr) {
+        // TODO: what if the name are repeated? Could be a bug to handle
+        std::string turnIndicatorText;
+        std::cout << "current_player" << gameState->get_current_player()->get_id() << std::endl;
+        std::cout << "me: " << me->get_id() << std::endl;
+        std::cout << "are they equal? " << (gameState->get_current_player() == me) << std::endl;
+        if (gameState->get_current_player() == me) {
+
+            turnIndicatorText = "It's your turn!";
+        } else{
+            turnIndicatorText = "...Waiting " + gameState->get_current_player()->get_player_name() + " to turn cards...";
+        }
+
+
+        wxPoint turnIndicatorPosition = MainGamePanel::tableCenter + MainGamePanel::turnIndicatorOffset;
+        this->buildStaticText(
+                turnIndicatorText,
+                turnIndicatorPosition,
+                wxSize(200, 20),
+                wxALIGN_CENTER,
+                true
+                );
+    }
+}
+
+wxStaticText * MainGamePanel::buildStaticText(std::string content, wxPoint position, wxSize size, long textAlignment, bool bold) {
+    wxStaticText * staticText = new wxStaticText(this, wxID_ANY, content, position, size, textAlignment);
+    // if bold, modify the style
+    if (bold) {
+        wxFont font = staticText->GetFont();
+        font.SetWeight(wxFONTWEIGHT_BOLD);
+        staticText->SetFont(font);
+    }
+    return staticText;
 }

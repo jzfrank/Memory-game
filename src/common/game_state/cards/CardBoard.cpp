@@ -82,22 +82,6 @@ void CardBoard::vanishPairs(int r1, int c1, int r2, int c2) {
                 ++it;
             }
         }
-
-//        for (int i=0; i<_cards.size(); i++) {
-//            if (_cards[i] != nullptr
-//                && _cards[i]->getPosition() == std::tuple<int, int>{r1, c1}) {
-//                Card * old_card = _cards[i];
-//                _cards[i] = nullptr;
-//                delete old_card;
-//            }
-//        }
-//
-//        for (int i=0; i < _cards.size(); i++) {
-//            if (_cards[i] != nullptr
-//                && _cards[i]->getPosition() == std::tuple<int, int>{r2, c2}) {
-//
-//            }
-//        }
     }
 }
 

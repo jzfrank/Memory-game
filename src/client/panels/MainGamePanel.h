@@ -21,14 +21,24 @@ public:
 private:
     void buildCardMatrix(GameState * gameState);
     void buildThisPlayer(GameState * gameState, Player * me);
+    void buildTurnIndicator(GameState * gameState, Player * me);
+
+    wxStaticText* buildStaticText(std::string content, wxPoint position, wxSize size,
+                                  long textAlignment, bool bold=false);
 
     std::unordered_map<int, std::string> val_to_filename = {
             {1, "card-K.png"},
             {2, "card-Q.png"}
     };
-    wxSize const panelSize = wxSize(960, 680);
+
+    wxPoint const turnIndicatorOffset = wxPoint(-500, -300);
     wxPoint const tableCenter = wxPoint(480, 300);
+
+    wxSize const panelSize = wxSize(960, 680);
     wxSize const cardSize = wxSize(80, 124);
+    wxSize const backGroundSize = wxSize(160, 250);
+
+
 
 };
 
