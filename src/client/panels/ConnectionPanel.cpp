@@ -22,6 +22,7 @@ ConnectionPanel::ConnectionPanel(wxWindow *parent)
             wxDefaultPosition,
             wxSize(200, 250)
             );
+    logo->SetWindowStyle(wxBORDER_NONE);
     verticalLayout->Add(logo, 0,
                         wxALIGN_CENTER | wxALL, 20);
 

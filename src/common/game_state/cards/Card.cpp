@@ -40,6 +40,10 @@ void Card::flip() {
     _isFront->set_value(! _isFront->get_value());
 }
 
+void Card::setValue(int value) {
+    _value->set_value(value);
+}
+
 Card *Card::from_json(const rapidjson::Value &json) {
     if (json.HasMember("id") && json.HasMember("value") && json.HasMember("isFront")) {
         return new Card(json["id"].GetString(),

@@ -52,8 +52,9 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
     CardBoard * cardBoard = gameState->getCardBoard();
     std::vector<Card*> cards = cardBoard->getCards();
 
+    int numOfRow = 3, numOfCol = 4;
     wxPoint cardStartPosition = MainGamePanel::tableCenter
-                                + wxPoint(-cardSize.x * 2, -cardSize.y * 1);
+                                + wxPoint(-cardSize.x * (numOfCol / 2), -cardSize.y * (numOfRow / 2));
 
     std::cout << "number of cards: " << cards.size() << std::endl;
     // TODO: build cardboards' background

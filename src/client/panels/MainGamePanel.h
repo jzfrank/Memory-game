@@ -38,8 +38,9 @@ private:
     wxPoint const thisPlayerPositionOffset = wxPoint(-100, 300);
     wxPoint const tableCenter = wxPoint(480, 300);
 
-    wxSize const panelSize = wxSize(960, 680);
+//    wxSize const panelSize = wxSize(960, 680);
     wxSize const cardSize = wxSize(80, 124);
+//    wxSize const cardSize = wxSize(60, 90);
     wxSize const backgroundSize = wxSize(600, 450);
 
     double twoPi = 6.28;

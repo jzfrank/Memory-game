@@ -150,6 +150,22 @@ int CardBoard::getNofTurnedCards() {
     return cnt;
 }
 
+void CardBoard::shuffle() {
+    // need to shuffle the card values
+    // 1. store card values
+    std::vector<int> card_values;
+    for (int i = 0; i < this->_cards.size(); i++) {
+        card_values.push_back(this->_cards[i]->getValue());
+    }
+    // 2. shuffle values
+    auto rng = std::default_random_engine {};
+    std::shuffle(std::begin(_cards), std::end(_cards), rng);
+    // 3. reset cards values by shuffled card_values
+    for (int i = 0; i < this->_cards.size(); i++) {
+        this->_cards[i]->setValue(card_values[i]);
+    }
+}
+
 #ifdef MEMORY_SERVER
 void CardBoard::setup_game(std::string &err) {
     // remove all cards (if any) and add the change to the "cards" array_diff
@@ -168,7 +184,7 @@ void CardBoard::setup_game(std::string &err) {
 
 //    // shuffle them
 // TODO: shuffle
-//    this->shuffle();
+    this->shuffle();
 }
 #endif
 

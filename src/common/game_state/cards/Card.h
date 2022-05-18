@@ -38,6 +38,9 @@ public:
     [[nodiscard]] bool getIsFront()  const noexcept;
     [[nodiscard]] std::tuple<int, int> getPosition() const noexcept;
 
+    // setters
+    void setValue(int value);
+
     // serializable interface
     void write_into_json(rapidjson::Value & json, rapidjson::Document::AllocatorType & allocator) const override;
     static Card* from_json(const rapidjson::Value & json);

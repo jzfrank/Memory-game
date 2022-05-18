@@ -34,6 +34,7 @@ public:
     bool processEndGame(); // check if the number of cards remaining is 0
     void handleTurnedCards(); // called when the number of turned cards reaches 2
     // TODO: Shuffle()
+    void shuffle();
 
     //accessors
     int getAvailableCards(); // returns the number of available cards on the cardboard
