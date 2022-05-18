@@ -133,9 +133,11 @@ void GameController::showGameOverMessage() {
         std::string player_score= std::to_string(players[i]->get_score());
 
         std::string winner_indicator = "";
+        if (players[i]->get_id() == GameController::_me->get_id()) {
+            player_name = "You";
+        }
         if (players[i]->get_score() == highest_score) {
             if (players[i]->get_id() == GameController::_me->get_id()) {
-                player_name = "You";
                 winner_indicator = "  You Win!";
             } else {
                 winner_indicator = "  Wins!";

@@ -57,11 +57,13 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
 
     std::cout << "number of cards: " << cards.size() << std::endl;
     // TODO: build cardboards' background
-    std::string background_image = "assets/memory-logo.png";
+    std::string background_image = "assets/question-mark-background.png";
+    wxPoint backgroundStartPosition = (MainGamePanel::tableCenter -
+                                       wxPoint(MainGamePanel::backgroundSize.x / 2,
+                                               MainGamePanel::backgroundSize.y / 2) +
+                                       wxPoint(0, MainGamePanel::cardSize.y / 2));
     new ImagePanel(this, background_image, wxBITMAP_TYPE_ANY,
-                                            (MainGamePanel::tableCenter -
-                                            wxPoint(MainGamePanel::backgroundSize.x / 2,
-                                                    MainGamePanel::backgroundSize.y / 2)),
+                                            backgroundStartPosition,
                                             MainGamePanel::backgroundSize);
     // if the cards number is more than 0, render the cardboard
     if (cards.size() > 0) {
@@ -90,12 +92,7 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
     }
     // otherwise, render a funny picture
     else {
-//        std::string funny_image = "assets/card-back.png";
-//        new ImagePanel(this, funny_image, wxBITMAP_TYPE_ANY,
-//                       (MainGamePanel::tableCenter -
-//                       wxPoint(MainGamePanel::backgroundSize.x / 2,
-//                                        MainGamePanel::backgroundSize.y / 2)),
-//                       MainGamePanel::backgroundSize);
+          std::cout << " no cards left! " << std::endl;
     }
 
 }
@@ -233,7 +230,6 @@ void MainGamePanel::buildOtherPlayerLabel(GameState *gameState, Player *otherPla
     }
 }
 
-
 void MainGamePanel::buildTurnIndicator(GameState *gameState, Player *me) {
     if (gameState->is_started()
         && gameState->get_current_player() != nullptr
@@ -245,7 +241,6 @@ void MainGamePanel::buildTurnIndicator(GameState *gameState, Player *me) {
         } else{
             turnIndicatorText = "...Waiting " + gameState->get_current_player()->get_player_name() + " to turn cards...";
         }
-
 
         wxPoint turnIndicatorPosition = MainGamePanel::tableCenter + MainGamePanel::turnIndicatorOffset;
         this->buildStaticText(
@@ -268,7 +263,6 @@ wxStaticText * MainGamePanel::buildStaticText(std::string content, wxPoint posit
     }
     return staticText;
 }
-
 
 wxPoint MainGamePanel::getPointOnEllipse(double horizontalRadius, double verticalRadius, double angle) {
     return wxPoint((int) (sin(angle) * horizontalRadius), (int) (cos(angle) * verticalRadius));

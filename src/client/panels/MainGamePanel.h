@@ -40,7 +40,7 @@ private:
 
     wxSize const panelSize = wxSize(960, 680);
     wxSize const cardSize = wxSize(80, 124);
-    wxSize const backgroundSize = wxSize(600, 300);
+    wxSize const backgroundSize = wxSize(600, 450);
 
     double twoPi = 6.28;
     double const otherPlayerHandSize = 160.0;

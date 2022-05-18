@@ -7,7 +7,7 @@
 
 ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format,
                        wxPoint position, wxSize size, double rotation)
-: wxPanel(parent, wxID_ANY, position, size)
+: wxPanel(parent, wxID_ANY, position, size, wxBORDER_SUNKEN)
 {
     if (!wxFileExists(file)) {
         wxMessageBox("Could not find file: " + file, "File error", wxICON_ERROR);
