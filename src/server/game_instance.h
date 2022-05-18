@@ -38,6 +38,7 @@ public:
     bool try_add_player(Player * new_player, std::string & err);
     bool try_remove_player(Player * player, std::string & err);
     bool flip_card(Player * player, int row, int col, std::string & err);
+    bool shuffle(Player * player, std::string & err);
 
 };
 

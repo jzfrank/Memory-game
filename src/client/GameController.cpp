@@ -6,6 +6,7 @@
 #include "../common/network/requests/join_game_request.h"
 #include "../common/network/requests/start_game_request.h"
 #include "../common/network/requests/flip_card_request.h"
+#include "../common/network/requests/shuffle_request.h"
 #include "network/ClientNetworkManager.h"
 
 // initialize static members
@@ -111,6 +112,12 @@ void GameController::flipCard(int row, int col) {
     flip_card_request request = flip_card_request(GameController::_currentGameState->get_id(),
                                                   GameController::_me->get_id(),
                                                   std::vector<int>{row, col});
+    ClientNetworkManager::sendRequest(request);
+}
+
+void GameController::shuffle() {
+    shuffle_request request = shuffle_request(GameController::_currentGameState->get_id(),
+                                                    GameController::_me->get_id());
     ClientNetworkManager::sendRequest(request);
 }
 

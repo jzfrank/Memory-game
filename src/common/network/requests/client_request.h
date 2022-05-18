@@ -20,7 +20,8 @@
 enum RequestType {
     join_game,
     start_game,
-    flip_card
+    flip_card,
+    shuffle
 };
 
 class client_request : public serializable {

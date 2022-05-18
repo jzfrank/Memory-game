@@ -53,8 +53,7 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
     std::vector<Card*> cards = cardBoard->getCards();
 
     int numOfRow = 3, numOfCol = 4;
-    wxPoint cardStartPosition = MainGamePanel::tableCenter
-                                + wxPoint(-cardSize.x * (numOfCol / 2), -cardSize.y * (numOfRow / 2));
+
 
     std::cout << "number of cards: " << cards.size() << std::endl;
     // TODO: build cardboards' background
@@ -66,13 +65,20 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
     new ImagePanel(this, background_image, wxBITMAP_TYPE_ANY,
                                             backgroundStartPosition,
                                             MainGamePanel::backgroundSize);
+
+//    wxPoint cardStartPosition = MainGamePanel::tableCenter
+//                                + wxPoint(-cardSize.x * (numOfCol / 2), -cardSize.y * (numOfRow / 2));
+    wxPoint cardStartPosition = wxPoint(
+            MainGamePanel::tableCenter.x - cardSize.x * (numOfCol / 2),
+            backgroundStartPosition.y + 40);
     // if the cards number is more than 0, render the cardboard
+
     if (cards.size() > 0) {
         for (int i=0; i < cards.size(); i++) {
             std::string cardImage;
             if (cards[i] == nullptr) {
                 cardImage = "assets/memory-logo.png";
-            } else if (! cards[i]->getIsFront()) {
+            } else if ( ! cards[i]->getIsFront()) {
                 cardImage = "assets/card-back.png";
             } else {
                 cardImage = "assets/" + val_to_filename[cards[i]->getValue()];
@@ -133,6 +139,18 @@ void MainGamePanel::buildThisPlayer(GameState *gameState, Player *me) {
                 wxALIGN_CENTER
         );
         innerLayout->Add(scoreIndicator, 0, wxALIGN_CENTER | wxBOTTOM, 8);
+
+        // build shuffle button
+        // TODO: if the player did not flip odd number of cards  ?
+        wxButton * shuffleButton = new wxButton(
+                this, wxID_ANY, "Shuffle",
+                wxDefaultPosition,
+                wxSize(80, 32)
+                );
+        shuffleButton->Bind(wxEVT_BUTTON, [](wxCommandEvent & event) {
+            GameController::shuffle();
+        });
+        innerLayout->Add(shuffleButton, 0, wxALIGN_CENTER | wxBOTTOM, 8);
     }
 }
 

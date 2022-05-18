@@ -13,6 +13,7 @@
 #include "../common/network/requests/join_game_request.h"
 #include "../common/network/requests/start_game_request.h"
 #include "../common/network/requests/flip_card_request.h"
+#include "../common/network/requests/shuffle_request.h"
 
 request_response *request_handler::handle_request(const client_request *const req) {
     // Prepare variables that are used by every request type
@@ -65,7 +66,7 @@ request_response *request_handler::handle_request(const client_request *const re
             }
         }
 
-            // ####### START GAME ######## //
+        // ####### START GAME ######## //
         case RequestType::start_game : {
             if (game_instance_manager::try_get_player_and_game_instance(player_id, player, game_instance_ptr, err)) {
                 if (game_instance_ptr->start_game(player, err)) {
@@ -76,12 +77,23 @@ request_response *request_handler::handle_request(const client_request *const re
             return new request_response("", req_id, false, nullptr, err);
         }
 
-            // ####### flip card ######## //
+        // ####### flip card ######## //
         case RequestType::flip_card : {
             std::vector<int> pos = ((flip_card_request *) req)->get_position();
             int row = pos[0], col = pos[1];
             if (game_instance_manager::try_get_player_and_game_instance(player_id, player, game_instance_ptr, err)) {
                 if (game_instance_ptr->flip_card(player, row, col, err)) {
+                    return new request_response(game_instance_ptr->get_id(), req_id, true,
+                                                game_instance_ptr->get_game_state()->to_json(), err);
+                }
+            }
+            return new request_response("", req_id, false, nullptr, err);
+        }
+
+        // ####### shuffle card ######## //
+        case RequestType::shuffle : {
+            if (game_instance_manager::try_get_player_and_game_instance(player_id, player, game_instance_ptr, err)) {
+                if (game_instance_ptr->shuffle(player, err)) {
                     return new request_response(game_instance_ptr->get_id(), req_id, true,
                                                 game_instance_ptr->get_game_state()->to_json(), err);
                 }

@@ -253,6 +253,28 @@ bool GameState::flipCard(Player* player, int row, int col, std::string & err) {
     }
 
 }
+
+bool GameState::shuffle(Player *player, std::string & err) {
+    if (!is_player_in_game(player)) {
+        err = "Server refused to perform draw_card. Player is not part of the game.";
+        return false;
+    }
+    if (!is_allowed_to_play_now(player)) {
+        err = "It's not this players turn yet";
+        return false;
+    }
+    if (_cardBoard->getAvailableCards() == 0 || _is_finished->get_value()) {
+        err = "Could not flip card, because the requested game is already finished.";
+        return false;
+    }
+
+    // shuffle, and every card should be set to be back cover
+    _cardBoard->shuffle();
+    this->update_current_player(err);
+    this->wrap_up_round(err);
+    // TODO: handle the right to play to next player
+    return true;
+}
 #endif
 
 // Serializable Interface

@@ -36,6 +36,7 @@ set(CLIENT_SOURCE_FILES
         src/common/network/requests/flip_card_request.cpp src/common/network/requests/flip_card_request.h
         src/common/network/requests/join_game_request.cpp src/common/network/requests/join_game_request.h
         src/common/network/requests/start_game_request.cpp src/common/network/requests/start_game_request.h
+        src/common/network/requests/shuffle_request.cpp src/common/network/requests/shuffle_request.h
         # server responses
         src/common/network/responses/server_response.cpp src/common/network/responses/server_response.h
         src/common/network/responses/request_response.cpp src/common/network/responses/request_response.h
@@ -49,7 +50,7 @@ set(CLIENT_SOURCE_FILES
         src/common/serialization/uuid_generator.h
         src/common/serialization/unique_serializable.cpp src/common/serialization/unique_serializable.h
         src/client/network/ClientNetworkManager.cpp src/client/network/ClientNetworkManager.h
-        src/client/network/ResponseListenerThread.cpp src/client/network/ResponseListenerThread.h)
+        src/client/network/ResponseListenerThread.cpp src/client/network/ResponseListenerThread.h src/common/network/requests/shuffle_request.cpp src/common/network/requests/shuffle_request.h)
 
 # define a variable SERVER_SOURCE_FILES that contains the paths to all source files required to compile the server executable
 set(SERVER_SOURCE_FILES
@@ -69,6 +70,7 @@ set(SERVER_SOURCE_FILES
         src/common/network/requests/flip_card_request.cpp src/common/network/requests/flip_card_request.h
         src/common/network/requests/join_game_request.cpp src/common/network/requests/join_game_request.h
         src/common/network/requests/start_game_request.cpp src/common/network/requests/start_game_request.h
+        src/common/network/requests/shuffle_request.cpp src/common/network/requests/shuffle_request.h
         # server responses
         src/common/network/responses/server_response.cpp src/common/network/responses/server_response.h
         src/common/network/responses/request_response.cpp src/common/network/responses/request_response.h

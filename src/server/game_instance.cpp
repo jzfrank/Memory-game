@@ -89,5 +89,18 @@ bool game_instance::flip_card(Player *player, int row, int col, std::string & er
     return false;
 }
 
+bool game_instance::shuffle(Player *player, std::string &err) {
+    modification_lock.lock();
+    if (_game_state->shuffle(player, err)) {
+        // send state update to all other players
+        full_state_response state_update_msg = full_state_response(this->get_id(), *_game_state);
+        server_network_manager::broadcast_message(state_update_msg, _game_state->get_players(), player);
+        modification_lock.unlock();
+        return true;
+    }
+    modification_lock.unlock();
+    return false;
+}
+
 
 

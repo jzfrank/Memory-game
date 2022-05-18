@@ -21,6 +21,7 @@ public:
     static void updateGameState(GameState* newGameState);
     static void startGame();
     static void flipCard(int row, int col);
+    static void shuffle();
 
     static void showGameOverMessage();
 

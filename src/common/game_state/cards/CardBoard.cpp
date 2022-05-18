@@ -152,6 +152,7 @@ int CardBoard::getNofTurnedCards() {
 
 void CardBoard::shuffle() {
     // need to shuffle the card values
+    // after shuffle, all cards should be facing back (isFront = false)
     // 1. store card values
     std::vector<int> card_values;
     for (int i = 0; i < this->_cards.size(); i++) {
@@ -161,9 +162,14 @@ void CardBoard::shuffle() {
     auto rng = std::default_random_engine {};
     std::shuffle(std::begin(_cards), std::end(_cards), rng);
     // 3. reset cards values by shuffled card_values
+    //    also, set isFront to false
     for (int i = 0; i < this->_cards.size(); i++) {
         this->_cards[i]->setValue(card_values[i]);
+        if (this->_cards[i]->getIsFront()) {
+            this->_cards[i]->flip();
+        }
     }
+
 }
 
 #ifdef MEMORY_SERVER

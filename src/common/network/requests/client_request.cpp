@@ -7,7 +7,7 @@
 #include "join_game_request.h"
 #include "start_game_request.h"
 #include "flip_card_request.h"
-
+#include "shuffle_request.h"
 
 #include <iostream>
 
@@ -15,14 +15,16 @@
 const std::unordered_map<std::string, RequestType> client_request::_string_to_request_type = {
         {"join_game", RequestType::join_game},
         {"start_game", RequestType::start_game},
-        {"flip_card", RequestType::flip_card}
+        {"flip_card", RequestType::flip_card},
+        {"shuffle", RequestType::shuffle}
 };
 
 // for serialization
 const std::unordered_map<RequestType, std::string> client_request::_request_type_to_string = {
         {RequestType::join_game, "join_game"},
         {RequestType::start_game, "start_game"},
-        {RequestType::flip_card, "flip_card"}
+        {RequestType::flip_card, "flip_card"},
+        {RequestType::shuffle, "shuffle"}
 };
 
 // protected constructor. only used by subclasses
@@ -95,6 +97,10 @@ client_request* client_request::from_json(const rapidjson::Value &json) {
         }
         else if (request_type == RequestType::flip_card) {
             return flip_card_request::from_json(json);
+        }
+        else if (request_type == RequestType::shuffle) {
+//            return start_game_request::from_json(json);
+            return shuffle_request::from_json(json);
         }
         else {
             throw MemoryException("Encountered unknown ClientRequest type " + type);

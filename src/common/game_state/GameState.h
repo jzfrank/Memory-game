@@ -73,6 +73,7 @@ public:
     bool add_player(Player* player, std::string& err);
     bool start_game(std::string& err);
     bool flipCard(Player* player, int row, int col, std::string & err);
+    bool shuffle(Player* player, std::string & err);
 
     // end of round functions
     void update_current_player(std::string& err);
