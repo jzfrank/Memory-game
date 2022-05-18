@@ -85,26 +85,20 @@ void GameController::updateGameState(GameState *newGameState) {
     GameController::_currentGameState = newGameState;
 
     if (oldGameState != nullptr) {
-
-        // check if a new round started
-        if (oldGameState->get_round_number() > 0 && oldGameState->get_round_number() < newGameState->get_round_number()) {
-//           TODO: GameController::showNewRoundMessage(oldGameState, newGameState);
-            1;
-        }
         // delete the old game state
         delete oldGameState;
-    }
-
-    // if game is finished, show game finished message
-    std::cout << "GameController::_currentGameState->is_finished(): "
-        << (GameController::_currentGameState->is_finished()) << std::endl;
-    if (GameController::_currentGameState->is_finished()) {
-        GameController::showGameOverMessage();
     }
 
     GameController::_gameWindow->showPanel(GameController::_mainGamePanel);
 
     GameController::_mainGamePanel->buildGameState(GameController::_currentGameState, GameController::_me);
+
+    // if game is finished, show game finished message
+    std::cout << "GameController::_currentGameState->is_finished(): "
+              << (GameController::_currentGameState->is_finished()) << std::endl;
+    if (GameController::_currentGameState->is_finished()) {
+        GameController::showGameOverMessage();
+    }
 }
 
 void GameController::startGame() {
@@ -126,12 +120,14 @@ void GameController::showGameOverMessage() {
     std::string buttonLabel = "Close Game";
 
     // show players' score summary and who is the winner
+    //      sort decreasingly by score
     std::vector<Player *> players = GameController::_currentGameState->get_players();
-    std::sort(players.begin(), players.end(), [](Player* a, Player* b) {
-        return a->get_score() < b->get_score();
+    std::sort(players.begin(), players.end(), [](const Player* a, const Player* b) -> bool {
+        return a->get_score() > b->get_score();
     });
 
     int highest_score = players[0]->get_score();
+    std::cout << "highest score: " << highest_score << std::endl;
     for (int i = 0; i < players.size(); i++) {
         std::string player_name = players[i]->get_player_name();
         std::string player_score= std::to_string(players[i]->get_score());

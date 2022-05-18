@@ -36,6 +36,8 @@ void MainGamePanel::buildGameState(GameState *gameState, Player * me) {
 
     this->buildCardMatrix(gameState);
 
+    this->buildOtherPlayers(gameState, myPosition);
+
     // indicator whose turn to play
     this->buildTurnIndicator(gameState, me);
 
@@ -120,24 +122,113 @@ void MainGamePanel::buildThisPlayer(GameState *gameState, Player *me) {
                 "score: " + std::to_string(me->get_score()),
                 thisPlayerPosition + wxPoint(0, 30),
                 wxSize(200, 18),
-                wxALIGN_CENTER,
-                true
+                wxALIGN_CENTER
         );
-        std::cout << "build this player part 2: not yet implemented" << std::endl;
     }
 }
 
+void MainGamePanel::buildOtherPlayers(GameState *gameState, int myPosition) {
+    std::vector<Player *> players = gameState->get_players();
+    int numberOfPlayers = gameState->get_players().size();
+    double anglePerPlayer = MainGamePanel::twoPi / (double) numberOfPlayers;
+
+    // show all other players
+    for(int i = 1; i < numberOfPlayers; i++) {
+
+        // get player at i-th position after myself
+        Player* otherPlayer = players.at((myPosition + i) % numberOfPlayers);
+
+        double playerAngle = (double) i * anglePerPlayer;
+        int side = (2 * i) - numberOfPlayers; // side < 0 => right, side == 0 => center, side > 0 => left
+
+        this->buildOtherPlayerLabel(gameState, otherPlayer, playerAngle, side);
+    }
+}
+
+void MainGamePanel::buildOtherPlayerLabel(GameState *gameState, Player *otherPlayer, double playerAngle, int side) {
+
+    long textAlignment = wxALIGN_CENTER;
+    int labelOffsetX = 0;
+
+    if(side < 0) { // right side
+        textAlignment = wxALIGN_LEFT;
+        labelOffsetX = 85;
+
+    } else if(side > 0) { // left side
+        textAlignment = wxALIGN_RIGHT;
+        labelOffsetX = -85;
+    }
+
+    // define the ellipse which represents the virtual player circle
+    double horizontalRadius = MainGamePanel::otherPlayerLabelDistanceFromCenter * 1.25; // 1.25 to horizontally elongate players' circle (but less than the hands' circle)
+    double verticalRadius = MainGamePanel::otherPlayerLabelDistanceFromCenter;
+
+    // get this player's position on that ellipse
+    wxPoint labelPosition = MainGamePanel::tableCenter;
+    labelPosition += this->getPointOnEllipse(horizontalRadius, verticalRadius, playerAngle);
+    labelPosition += wxSize(labelOffsetX, 0);
+
+    // if game has not yet started, we only have two lines
+    if(!gameState->is_started()) {
+        this->buildStaticText(
+                otherPlayer->get_player_name(),
+                labelPosition + wxSize(-100, -18),
+                wxSize(200, 18),
+                textAlignment,
+                true
+        );
+        this->buildStaticText(
+                "waiting...",
+                labelPosition + wxSize(-100, 0),
+                wxSize(200, 18),
+                textAlignment
+        );
+
+    } else {
+        this->buildStaticText(
+                otherPlayer->get_player_name(),
+                labelPosition + wxSize(-100, -27),
+                wxSize(200, 18),
+                textAlignment,
+                true
+        );
+        this->buildStaticText(
+                "score: " + std::to_string(otherPlayer->get_score()),
+                labelPosition + wxSize(-100, -9),
+                wxSize(200, 18),
+                textAlignment
+        );
+
+        // Show other player's status label
+        std::string statusText;
+        if (!gameState->is_finished()) {
+            if (gameState->get_current_player() == otherPlayer) {
+                statusText = "their turn";
+            } else {
+                statusText = "waiting...";
+            }
+        } else {
+            statusText = "";
+        }
+
+        bool bold = true;
+        this->buildStaticText(
+                statusText,
+                labelPosition + wxSize(-100, 9),
+                wxSize(200, 18),
+                textAlignment,
+                bold
+        );
+    }
+}
+
+
 void MainGamePanel::buildTurnIndicator(GameState *gameState, Player *me) {
-    if (gameState->is_started() && gameState->get_current_player() != nullptr) {
+    if (gameState->is_started()
+        && gameState->get_current_player() != nullptr
+        && !gameState->is_finished()) {
         // TODO: what if the name are repeated? Could be a bug to handle
         std::string turnIndicatorText;
-//        std::cout << "current_player: " << gameState->get_current_player()->get_player_name() << " "
-//                << gameState->get_current_player()->get_score() << " "
-//                << gameState->get_current_player()->get_id() << std::endl;
-//        std::cout << "me: " << me->get_player_name() << " "
-//                << me->get_score() << " "
-//                << me->get_id() << std::endl;
-//        std::cout << "are they equal? " << (gameState->get_current_player() == me) << std::endl;
         if (gameState->get_current_player() == me) {
             turnIndicatorText = "It's your turn!";
         } else{
@@ -165,4 +256,9 @@ wxStaticText * MainGamePanel::buildStaticText(std::string content, wxPoint posit
         staticText->SetFont(font);
     }
     return staticText;
+}
+
+
+wxPoint MainGamePanel::getPointOnEllipse(double horizontalRadius, double verticalRadius, double angle) {
+    return wxPoint((int) (sin(angle) * horizontalRadius), (int) (cos(angle) * verticalRadius));
 }

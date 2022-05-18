@@ -21,10 +21,13 @@ public:
 private:
     void buildCardMatrix(GameState * gameState);
     void buildThisPlayer(GameState * gameState, Player * me);
+    void buildOtherPlayers(GameState * gameState, int myPosition);
+    void buildOtherPlayerLabel(GameState* gameState, Player * otherPlayer, double playerAngle, int side);
     void buildTurnIndicator(GameState * gameState, Player * me);
 
     wxStaticText* buildStaticText(std::string content, wxPoint position, wxSize size,
                                   long textAlignment, bool bold=false);
+    wxPoint getPointOnEllipse(double horizontalRadius, double verticalRadius, double angle);
 
     std::unordered_map<int, std::string> val_to_filename = {
             {1, "card-K.png"},
@@ -38,6 +41,11 @@ private:
     wxSize const panelSize = wxSize(960, 680);
     wxSize const cardSize = wxSize(80, 124);
     wxSize const backGroundSize = wxSize(160, 250);
+
+    double twoPi = 6.28;
+    double const otherPlayerHandSize = 160.0;
+    double const otherPlayerHandDistanceFromCenter = 180.0;
+    double const otherPlayerLabelDistanceFromCenter = 275.0;
 
 
 
