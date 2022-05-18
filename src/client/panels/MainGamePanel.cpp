@@ -56,6 +56,13 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
                                 + wxPoint(-cardSize.x * 2, -cardSize.y * 1);
 
     std::cout << "number of cards: " << cards.size() << std::endl;
+    // TODO: build cardboards' background
+    std::string background_image = "assets/memory-logo.png";
+    new ImagePanel(this, background_image, wxBITMAP_TYPE_ANY,
+                                            (MainGamePanel::tableCenter -
+                                            wxPoint(MainGamePanel::backgroundSize.x / 2,
+                                                    MainGamePanel::backgroundSize.y / 2)),
+                                            MainGamePanel::backgroundSize);
     // if the cards number is more than 0, render the cardboard
     if (cards.size() > 0) {
         for (int i=0; i < cards.size(); i++) {
@@ -72,8 +79,8 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
             int row = std::get<0>(pos), col = std::get<1>(pos);
             ImagePanel* card = new ImagePanel(this, cardImage, wxBITMAP_TYPE_ANY,
                                               cardStartPosition
-                                              + wxPoint(col * cardSize.x, row * cardSize.y),
-                                              cardSize);
+                                              + wxPoint(col * MainGamePanel::cardSize.x, row * MainGamePanel::cardSize.y),
+                                              MainGamePanel::cardSize);
             card->SetToolTip("card: click to flip");
             card->SetCursor(wxCursor(wxCURSOR_HAND));
             card->Bind(wxEVT_LEFT_UP, [row, col] (wxMouseEvent & event) {
@@ -83,47 +90,51 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
     }
     // otherwise, render a funny picture
     else {
-        std::string funny_image = "assets/card-back.png";
-        new ImagePanel(this, funny_image, wxBITMAP_TYPE_ANY,
-                       (MainGamePanel::tableCenter -
-                       wxPoint(MainGamePanel::backGroundSize.x / 2,
-                                        MainGamePanel::backGroundSize.y / 2)),
-                       MainGamePanel::backGroundSize);
+//        std::string funny_image = "assets/card-back.png";
+//        new ImagePanel(this, funny_image, wxBITMAP_TYPE_ANY,
+//                       (MainGamePanel::tableCenter -
+//                       wxPoint(MainGamePanel::backgroundSize.x / 2,
+//                                        MainGamePanel::backgroundSize.y / 2)),
+//                       MainGamePanel::backgroundSize);
     }
 
 }
 
 void MainGamePanel::buildThisPlayer(GameState *gameState, Player *me) {
 
-    wxPoint thisPlayerPosition = MainGamePanel::tableCenter + MainGamePanel::thisPlayerPositionOffset;
-//    wxStaticText* playerName =
-    this->buildStaticText(
+    wxBoxSizer* outerLayout = new wxBoxSizer(wxHORIZONTAL);
+    this->SetSizer(outerLayout);
+    wxBoxSizer* innerLayout = new wxBoxSizer(wxVERTICAL);
+    outerLayout->Add(innerLayout, 1, wxALIGN_BOTTOM);
+
+    wxStaticText* playerName = this->buildStaticText(
         me->get_player_name(),
-        thisPlayerPosition,
+        wxDefaultPosition,
         wxSize(200, 18),
         wxALIGN_CENTER,
         true
     );
+    innerLayout->Add(playerName, 1, wxALIGN_CENTER);
 
     if (!gameState->is_started()) {
         // show button that allows out player to start the game
         wxButton * startGameButton = new wxButton(
                 this, wxID_ANY, "Start Game!",
-                thisPlayerPosition + wxPoint(50, 0),
+                wxDefaultPosition,
                 wxSize(160, 64));
         startGameButton->Bind(wxEVT_BUTTON, [](wxCommandEvent & event) {
             GameController::startGame();
         });
-
+        innerLayout->Add(startGameButton, 0, wxALIGN_CENTER | wxBOTTOM, 8);
     } else {
-        // TODO: to be implemented
         // build score
-        this->buildStaticText(
+        wxStaticText * scoreIndicator = this->buildStaticText(
                 "score: " + std::to_string(me->get_score()),
-                thisPlayerPosition + wxPoint(0, 30),
+                wxDefaultPosition,
                 wxSize(200, 18),
                 wxALIGN_CENTER
         );
+        innerLayout->Add(scoreIndicator, 0, wxALIGN_CENTER | wxBOTTOM, 8);
     }
 }
 
