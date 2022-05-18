@@ -135,12 +135,13 @@ void GameState::wrap_up_round(std::string &err) {
 
     if (is_game_over) {
         this->_is_finished->set_value(true);
-    } else {
-        // decide which player starts in the next round
-        _starting_player_idx->set_value((_starting_player_idx->get_value() + 1) % _players.size());
-        // start next round
-        setup_round(err);
     }
+//    else {
+//        // decide which player starts in the next round
+//        _starting_player_idx->set_value((_starting_player_idx->get_value() + 1) % _players.size());
+//        // start next round
+//        setup_round(err);
+//    }
 }
 
 void GameState::update_current_player(std::string &err) {
@@ -219,7 +220,9 @@ bool GameState::flipCard(Player* player, int row, int col, std::string & err) {
     bool flippable = _cardBoard->flipCard(row, col);
     if (flippable) {
         // handle vanishing cards
-        // TODO: implement timeout / message box
+        // TODO: implement timeout / message box?
+        //  Question: do we need timeout, or it's more interesting that the user
+        //  can only see the first card they flip?
         int numOfCardsBeforeHandle = _cardBoard->getAvailableCards();
         _cardBoard->handleTurnedCards();
         int numOfCardsAfterHandle =  _cardBoard->getAvailableCards();
@@ -227,12 +230,18 @@ bool GameState::flipCard(Player* player, int row, int col, std::string & err) {
             player->set_score(player->get_score() + 2);
         }
         // TODO: I think it might be an interesting feature:
-        //  if the current player flips correct, he/she can continue!
+        //  if the current player flips correctly, he/she can continue!
         else if (_cardBoard->getNofTurnedCards() % 2 == 0
                 && numOfCardsBeforeHandle == numOfCardsAfterHandle) {
             this->update_current_player(err);
         };
 
+        // check if the game is finished
+        // if yes, set _is_finished to be true
+        this->wrap_up_round(err);
+
+        // TODO: Alternative design: the user cannot continue no matter
+        //  he/she got it right or not
 //        // if the player has flipped 2 cards we let next player to play
 //        if (_cardBoard->getNofTurnedCards() % 2 == 0) {
 //            this->update_current_player(err);

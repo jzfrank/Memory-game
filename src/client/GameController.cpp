@@ -96,8 +96,10 @@ void GameController::updateGameState(GameState *newGameState) {
     }
 
     // if game is finished, show game finished message
+    std::cout << "GameController::_currentGameState->is_finished(): "
+        << (GameController::_currentGameState->is_finished()) << std::endl;
     if (GameController::_currentGameState->is_finished()) {
-//        TODO: GameController::showGameOverMessage();
+        GameController::showGameOverMessage();
     }
 
     GameController::_gameWindow->showPanel(GameController::_mainGamePanel);
@@ -116,24 +118,42 @@ void GameController::flipCard(int row, int col) {
                                                   GameController::_me->get_id(),
                                                   std::vector<int>{row, col});
     ClientNetworkManager::sendRequest(request);
+}
 
-//    GameController::_currentGameState->flipCard(row, col);
-//    GameController::updateGameState(GameController::_currentGameState);
-//    CardBoard * cardBoard = GameController::_currentGameState->getCardBoard();
-//    if (cardBoard->getNofTurnedCards() == 2) {
-//        // either the same card then vanish
-//        // or different card but let next player to play
-//        cardBoard->handleTurnedCards();
-//        std::cout << "next player" << std::endl;
-//
-//        // Show message that current turn is finished
-//        // TODO: add timeout
-//        std::string message = "Your turn is finished";
-//        std::string title = "Message";
-//        wxMessageDialog dialogBox = wxMessageDialog(nullptr, message, title, wxICON_NONE);
-//        dialogBox.ShowModal();
-//    }
-//    GameController::updateGameState(GameController::_currentGameState);
+void GameController::showGameOverMessage() {
+    std::string title = "Game Over";
+    std::string message = "Final Score: \n";
+    std::string buttonLabel = "Close Game";
+
+    // show players' score summary and who is the winner
+    std::vector<Player *> players = GameController::_currentGameState->get_players();
+    std::sort(players.begin(), players.end(), [](Player* a, Player* b) {
+        return a->get_score() < b->get_score();
+    });
+
+    int highest_score = players[0]->get_score();
+    for (int i = 0; i < players.size(); i++) {
+        std::string player_name = players[i]->get_player_name();
+        std::string player_score= std::to_string(players[i]->get_score());
+
+        std::string winner_indicator = "";
+        if (players[i]->get_score() == highest_score) {
+            if (players[i]->get_id() == GameController::_me->get_id()) {
+                player_name = "You";
+                winner_indicator = "  You Win!";
+            } else {
+                winner_indicator = "  Wins!";
+            }
+        }
+        message += "\n" + player_name + ":      " + player_score + winner_indicator;
+    }
+
+    wxMessageDialog dialogBox = wxMessageDialog(nullptr, message, title, wxICON_NONE);
+    dialogBox.SetOKLabel(wxMessageDialog::ButtonLabel(buttonLabel));
+    int buttonClicked = dialogBox.ShowModal();
+    if(buttonClicked == wxID_OK) {
+        GameController::_gameWindow->Close();
+    }
 }
 
 wxEvtHandler *GameController::getMainThreadEventHandler() {
