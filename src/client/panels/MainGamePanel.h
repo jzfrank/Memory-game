@@ -30,8 +30,9 @@ private:
     wxPoint getPointOnEllipse(double horizontalRadius, double verticalRadius, double angle);
 
     std::unordered_map<int, std::string> val_to_filename = {
-            {1, "card-K.png"},
-            {2, "card-Q.png"}
+            {1, "card-1.png"},
+            {2, "card-2.png"},
+            {3, "card-3.png"}
     };
 
     wxPoint const turnIndicatorOffset = wxPoint(-400, -200);

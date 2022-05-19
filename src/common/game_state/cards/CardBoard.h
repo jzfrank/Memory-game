@@ -33,7 +33,6 @@ public:
     void vanishPairs(int r1, int c1, int r2, int c2); // vanish a pair of cards if possible
     bool processEndGame(); // check if the number of cards remaining is 0
     void handleTurnedCards(); // called when the number of turned cards reaches 2
-    // TODO: Shuffle()
     void shuffle();
 
     //accessors

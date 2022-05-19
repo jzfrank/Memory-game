@@ -6,7 +6,7 @@
 #include <vector>
 #include "../GameController.h"
 
-MainGamePanel::MainGamePanel(wxWindow *parent) : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(960, 680)) {
+MainGamePanel::MainGamePanel(wxWindow *parent) : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(960, 750)) {
 
 }
 
@@ -57,7 +57,7 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
 
     std::cout << "number of cards: " << cards.size() << std::endl;
     // TODO: build cardboards' background
-    std::string background_image = "assets/question-mark-background.png";
+    std::string background_image = "assets/question-background.png";
     wxPoint backgroundStartPosition = (MainGamePanel::tableCenter -
                                        wxPoint(MainGamePanel::backgroundSize.x / 2,
                                                MainGamePanel::backgroundSize.y / 2) +
@@ -274,6 +274,7 @@ void MainGamePanel::buildTurnIndicator(GameState *gameState, Player *me) {
 
 wxStaticText * MainGamePanel::buildStaticText(std::string content, wxPoint position, wxSize size, long textAlignment, bool bold) {
     wxStaticText * staticText = new wxStaticText(this, wxID_ANY, content, position, size, textAlignment);
+    staticText->SetForegroundColour(wxColor(229, 153, 52)); // brown yellow
     // if bold, modify the style
     if (bold) {
         wxFont font = staticText->GetFont();
