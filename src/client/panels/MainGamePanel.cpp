@@ -57,7 +57,13 @@ void MainGamePanel::buildCardMatrix(GameState* gameState) {
 
     std::cout << "number of cards: " << cards.size() << std::endl;
     // TODO: build cardboards' background
-    std::string background_image = "assets/question-background.png";
+    std::string background_image;
+    if (!gameState->is_started() || gameState->is_finished()) {
+        background_image = "assets/memory-background.png";
+    }
+    else {
+        background_image = "assets/question-background.png";
+    }
     wxPoint backgroundStartPosition = (MainGamePanel::tableCenter -
                                        wxPoint(MainGamePanel::backgroundSize.x / 2,
                                                MainGamePanel::backgroundSize.y / 2) +
