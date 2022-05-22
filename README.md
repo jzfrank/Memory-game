@@ -1,7 +1,7 @@
 # Memory-game
-Card games that test memory.
+Memory-game is a card game that tests memory.
 
-This project is for Software Engineering at ETHz
+This project is for Software Engineering at ETHz.
 
 ## 1. Compile instructions
 
@@ -15,6 +15,8 @@ Execute the following commands in a console:
 4. `sudo snap install clion --classic` this installs the latest stable CLion version
 5. `sudo apt-get install libwxgtk3.0-gtk3-dev` this installs wxWidgets (GUI library used in this project)
 
+Then you should be good to go: open this project in clion, build and run.
+
 ### 1.2 Compile Code
 1. Open Clion
 2. Click `File > Open...` and there select the **/sockpp** folder of this project
@@ -22,7 +24,7 @@ Execute the following commands in a console:
 4. Wait until sockpp is compiled (from now on you never have to touch sockpp again ;))
 5. Click `File > Open...` select the **/memory-game** folder
 6. Click `Build > Build all in 'Debug'`
-7. Wait until Lama-server, Lama-client and Lama-tests are compiled
+7. Wait until Memory-server, Memory-client and Memory-tests (to be implemented) are compiled
 
 ## 2. Run the Game
 1. Open a console in the project folder, navigate into "cmake-build-debug" `cd cmake-build-debug`
@@ -30,4 +32,4 @@ Execute the following commands in a console:
 3. In new consoles run as many clients as you want players `./Memory-client`
 
 
-Then you should be good to go: open this project in clion, build and run. 
+ 
