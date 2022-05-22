@@ -184,7 +184,16 @@ void CardBoard::setup_game(std::string &err) {
     int row_num = 3, col_num = 4;
     for (int i=0; i < row_num; i++) {
         for (int j = 0; j < col_num; j++) {
-            _cards.push_back(new Card( (i * col_num + j) % 2 == 0 ? 1 : 2, false, i, j));
+            int card_value;
+            if ((i * col_num + j) % 3 == 0) {
+                card_value = 1;
+            } else if ((i * col_num + j) % 3 == 1) {
+                card_value = 2;
+            } else {
+                card_value = 3;
+            }
+
+            _cards.push_back(new Card(card_value, false, i, j));
         }
     }
 
